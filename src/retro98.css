@@ -1,0 +1,566 @@
+/* Authentic Windows 98 Retro CSS */
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+  --win-teal: #008080;
+  --win-gray: #c0c0c0;
+  --win-dark-gray: #808080;
+  --win-light: #ffffff;
+  --win-light-gray: #dfdfdf;
+  --win-black: #000000;
+  --win-blue-start: #000080;
+  --win-blue-end: #1084d0;
+  --win-inactive-start: #808080;
+  --win-inactive-end: #b5b5b5;
+  --win-font: 'MS Sans Serif', Tahoma, 'Segoe UI', Arial, sans-serif;
+  --taskbar-height: 28px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: none;
+  font-smooth: never;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: var(--win-font);
+  font-size: 11px;
+  user-select: none;
+  background-color: var(--win-teal);
+  color: #000000;
+}
+
+/* 3D Borders & Bevels */
+.win98-outset {
+  border-top: 1px solid var(--win-light);
+  border-left: 1px solid var(--win-light);
+  border-right: 1px solid var(--win-black);
+  border-bottom: 1px solid var(--win-black);
+  box-shadow: inset 1px 1px 0px var(--win-light-gray), inset -1px -1px 0px var(--win-dark-gray);
+}
+
+.win98-inset {
+  border-top: 1px solid var(--win-dark-gray);
+  border-left: 1px solid var(--win-dark-gray);
+  border-right: 1px solid var(--win-light);
+  border-bottom: 1px solid var(--win-light);
+  box-shadow: inset 1px 1px 0px var(--win-black), inset -1px -1px 0px var(--win-light-gray);
+}
+
+/* Classic Button */
+.win98-btn {
+  background: var(--win-gray);
+  border-top: 1px solid var(--win-light);
+  border-left: 1px solid var(--win-light);
+  border-right: 1px solid var(--win-black);
+  border-bottom: 1px solid var(--win-black);
+  box-shadow: inset 1px 1px 0px var(--win-light-gray), inset -1px -1px 0px var(--win-dark-gray);
+  padding: 2px 6px;
+  font-family: var(--win-font);
+  font-size: 11px;
+  color: #000000;
+  cursor: default;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  outline: none;
+  text-decoration: none;
+}
+
+.win98-btn:focus {
+  outline: 1px dotted #000000;
+  outline-offset: -4px;
+}
+
+.win98-btn:active,
+.win98-btn.pressed {
+  border-top: 1px solid var(--win-black);
+  border-left: 1px solid var(--win-black);
+  border-right: 1px solid var(--win-light);
+  border-bottom: 1px solid var(--win-light);
+  box-shadow: inset 1px 1px 0px var(--win-dark-gray);
+  padding: 3px 5px 1px 7px;
+}
+
+/* Windows 98 Window Structure */
+.win98-window {
+  position: absolute;
+  background-color: var(--win-gray);
+  border-top: 1px solid var(--win-light);
+  border-left: 1px solid var(--win-light);
+  border-right: 1px solid var(--win-black);
+  border-bottom: 1px solid var(--win-black);
+  box-shadow: inset 1px 1px 0px var(--win-light-gray), inset -1px -1px 0px var(--win-dark-gray);
+  display: flex;
+  flex-direction: column;
+  padding: 2px;
+  min-width: 200px;
+  min-height: 120px;
+}
+
+.win98-window.maximized {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: calc(100vh - var(--taskbar-height)) !important;
+  border: none;
+  box-shadow: none;
+}
+
+/* Window Titlebar */
+.win98-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 18px;
+  padding: 1px 2px 1px 3px;
+  margin-bottom: 2px;
+  cursor: default;
+}
+
+.win98-window.active .win98-titlebar {
+  background: linear-gradient(90deg, var(--win-blue-start) 0%, var(--win-blue-end) 100%);
+  color: #ffffff;
+}
+
+.win98-window:not(.active) .win98-titlebar {
+  background: linear-gradient(90deg, var(--win-inactive-start) 0%, var(--win-inactive-end) 100%);
+  color: #d4d0c8;
+}
+
+.win98-titlebar-title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: bold;
+  font-size: 11px;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.win98-titlebar-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Titlebar Minimize, Maximize, Close Buttons */
+.win98-titlebar-btn {
+  width: 16px;
+  height: 14px;
+  background: var(--win-gray);
+  border-top: 1px solid var(--win-light);
+  border-left: 1px solid var(--win-light);
+  border-right: 1px solid var(--win-black);
+  border-bottom: 1px solid var(--win-black);
+  box-shadow: inset 1px 1px 0px var(--win-light-gray), inset -1px -1px 0px var(--win-dark-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: bold;
+  color: #000000;
+  cursor: default;
+  padding: 0;
+  line-height: 1;
+}
+
+.win98-titlebar-btn:active {
+  border-top: 1px solid var(--win-black);
+  border-left: 1px solid var(--win-black);
+  border-right: 1px solid var(--win-light);
+  border-bottom: 1px solid var(--win-light);
+  box-shadow: inset 1px 1px 0px var(--win-dark-gray);
+  padding-top: 1px;
+  padding-left: 1px;
+}
+
+/* Menu Bar inside Windows */
+.win98-menubar {
+  display: flex;
+  align-items: center;
+  background: var(--win-gray);
+  padding: 2px 4px;
+  margin-bottom: 2px;
+  border-bottom: 1px solid var(--win-dark-gray);
+  gap: 2px;
+}
+
+.win98-menu-item {
+  padding: 2px 6px;
+  cursor: default;
+}
+
+.win98-menu-item:hover,
+.win98-menu-item.active {
+  background-color: var(--win-blue-start);
+  color: #ffffff;
+}
+
+/* Window Content Body */
+.win98-content {
+  flex: 1;
+  background: #ffffff;
+  border-top: 1px solid var(--win-dark-gray);
+  border-left: 1px solid var(--win-dark-gray);
+  border-right: 1px solid var(--win-light);
+  border-bottom: 1px solid var(--win-light);
+  box-shadow: inset 1px 1px 0px var(--win-black), inset -1px -1px 0px var(--win-light-gray);
+  overflow: auto;
+  position: relative;
+}
+
+/* Status Bar */
+.win98-statusbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+  padding: 2px 0 0 0;
+}
+
+.win98-status-section {
+  padding: 2px 4px;
+  border-top: 1px solid var(--win-dark-gray);
+  border-left: 1px solid var(--win-dark-gray);
+  border-right: 1px solid var(--win-light);
+  border-bottom: 1px solid var(--win-light);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+/* Desktop Styles */
+.win98-desktop {
+  width: 100vw;
+  height: calc(100vh - var(--taskbar-height));
+  position: relative;
+  overflow: hidden;
+  background-color: var(--win-teal);
+}
+
+.win98-desktop-icons {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 16px;
+  height: calc(100% - 20px);
+  z-index: 1;
+}
+
+.win98-desktop-icon {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  padding: 4px 2px;
+  text-align: center;
+}
+
+.win98-desktop-icon .icon-graphic {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.win98-desktop-icon .icon-label {
+  font-family: var(--win-font);
+  font-size: 11px;
+  color: #ffffff;
+  padding: 1px 3px;
+  line-height: 1.25;
+  word-break: normal;
+  max-width: 80px;
+  text-shadow: 1px 1px 0px #000000;
+}
+
+.win98-desktop-icon.selected .icon-graphic {
+  filter: drop-shadow(0 0 1px #000080);
+}
+
+.win98-desktop-icon.selected .icon-label {
+  background-color: var(--win-blue-start);
+  outline: 1px dotted #ffffff;
+  text-shadow: none;
+}
+
+/* Taskbar */
+.win98-taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--taskbar-height);
+  background-color: var(--win-gray);
+  border-top: 1px solid var(--win-light);
+  box-shadow: inset 0 1px 0 var(--win-light-gray);
+  display: flex;
+  align-items: center;
+  padding: 2px 3px;
+  gap: 4px;
+  z-index: 999999;
+}
+
+.win98-start-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--win-font);
+  font-weight: bold;
+  font-size: 11px;
+  padding: 2px 6px;
+  height: 22px;
+}
+
+.win98-taskbar-tasks {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 22px;
+}
+
+.win98-task-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 160px;
+  min-width: 80px;
+  height: 22px;
+  padding: 2px 6px;
+  font-family: var(--win-font);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: default;
+}
+
+.win98-task-btn.active {
+  background: #d4d0c8;
+  border-top: 1px solid var(--win-black);
+  border-left: 1px solid var(--win-black);
+  border-right: 1px solid var(--win-light);
+  border-bottom: 1px solid var(--win-light);
+  box-shadow: inset 1px 1px 0px var(--win-dark-gray);
+  font-weight: bold;
+}
+
+.win98-taskbar-divider {
+  width: 2px;
+  height: 18px;
+  border-left: 1px solid var(--win-dark-gray);
+  border-right: 1px solid var(--win-light);
+}
+
+.win98-systray {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 6px;
+  height: 22px;
+  border-top: 1px solid var(--win-dark-gray);
+  border-left: 1px solid var(--win-dark-gray);
+  border-right: 1px solid var(--win-light);
+  border-bottom: 1px solid var(--win-light);
+  box-shadow: inset 1px 1px 0px var(--win-black), inset -1px -1px 0px var(--win-light-gray);
+  font-size: 11px;
+}
+
+/* Start Menu */
+.win98-start-menu {
+  position: fixed;
+  bottom: var(--taskbar-height);
+  left: 0;
+  width: 190px;
+  background: var(--win-gray);
+  border-top: 1px solid var(--win-light);
+  border-left: 1px solid var(--win-light);
+  border-right: 1px solid var(--win-black);
+  border-bottom: 1px solid var(--win-black);
+  box-shadow: inset 1px 1px 0px var(--win-light-gray), inset -1px -1px 0px var(--win-dark-gray), 2px 2px 4px rgba(0,0,0,0.4);
+  display: flex;
+  z-index: 1000000;
+}
+
+.win98-start-sidebar {
+  width: 24px;
+  background: linear-gradient(180deg, #000080 0%, #1084d0 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 8px;
+}
+
+.win98-start-sidebar-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 15px;
+  letter-spacing: 1.5px;
+  font-family: Arial, sans-serif;
+}
+
+.win98-start-sidebar-text span {
+  color: #c0c0c0;
+  font-weight: normal;
+}
+
+.win98-start-items {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2px 1px;
+}
+
+.win98-start-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  cursor: default;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.win98-start-item:hover,
+.win98-start-item.active {
+  background-color: var(--win-blue-start);
+  color: #ffffff;
+}
+
+.win98-start-item-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.win98-start-separator {
+  height: 1px;
+  border-top: 1px solid var(--win-dark-gray);
+  border-bottom: 1px solid var(--win-light);
+  margin: 2px 1px;
+}
+
+/* Context Menu */
+.win98-context-menu {
+  position: fixed;
+  background: var(--win-gray);
+  border-top: 1px solid var(--win-light);
+  border-left: 1px solid var(--win-light);
+  border-right: 1px solid var(--win-black);
+  border-bottom: 1px solid var(--win-black);
+  box-shadow: inset 1px 1px 0px var(--win-light-gray), inset -1px -1px 0px var(--win-dark-gray), 2px 2px 4px rgba(0,0,0,0.3);
+  padding: 2px 1px;
+  min-width: 140px;
+  z-index: 2000000;
+}
+
+.win98-context-item {
+  padding: 3px 14px 3px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: default;
+  font-size: 11px;
+}
+
+.win98-context-item:hover {
+  background: var(--win-blue-start);
+  color: #ffffff;
+}
+
+.win98-context-item.disabled {
+  color: var(--win-dark-gray);
+  text-shadow: 1px 1px 0px var(--win-light);
+  cursor: default;
+}
+
+.win98-context-item.disabled:hover {
+  background: transparent;
+  color: var(--win-dark-gray);
+}
+
+/* CRT Scanlines Overlay */
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 3px;
+  z-index: 9999999;
+  opacity: 0.4;
+}
+
+/* Custom Windows 98 Scrollbars */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+  background: #dfdfdf;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #dfdfdf;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #ffffff 25%,
+    transparent 25%,
+    transparent 75%,
+    #ffffff 75%,
+    #ffffff
+  ), repeating-linear-gradient(
+    45deg,
+    #ffffff 25%,
+    #dfdfdf 25%,
+    #dfdfdf 75%,
+    #ffffff 75%,
+    #ffffff
+  );
+  background-position: 0 0, 2px 2px;
+  background-size: 4px 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--win-gray);
+  border-top: 1px solid var(--win-light);
+  border-left: 1px solid var(--win-light);
+  border-right: 1px solid var(--win-black);
+  border-bottom: 1px solid var(--win-black);
+  box-shadow: inset 1px 1px 0px var(--win-light-gray), inset -1px -1px 0px var(--win-dark-gray);
+}
+
+::-webkit-scrollbar-button {
+  background: var(--win-gray);
+  border-top: 1px solid var(--win-light);
+  border-left: 1px solid var(--win-light);
+  border-right: 1px solid var(--win-black);
+  border-bottom: 1px solid var(--win-black);
+  box-shadow: inset 1px 1px 0px var(--win-light-gray), inset -1px -1px 0px var(--win-dark-gray);
+  width: 16px;
+  height: 16px;
+}
