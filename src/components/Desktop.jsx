@@ -8,10 +8,12 @@ import InternetExplorerApp from './apps/InternetExplorerApp';
 import MyComputerApp from './apps/MyComputerApp';
 import MyDocumentsApp from './apps/MyDocumentsApp';
 import MyPicturesApp from './apps/MyPicturesApp';
+import ImageViewerApp from './apps/ImageViewerApp';
 import RecycleBinApp from './apps/RecycleBinApp';
 import DisplayPropertiesApp from './apps/DisplayPropertiesApp';
 import ContextMenu from './ContextMenu';
 import { soundEffects } from '../utils/soundEffects';
+import { SUPPLIED_PHOTOS } from '../data/salluBhaiData';
 
 const DESKTOP_SHORTCUTS = [
   { id: 'my-computer', label: 'My Computer', icon: RetroIcons.MyComputer },
@@ -33,6 +35,7 @@ export default function Desktop({
   onMinimizeWindow,
   onMaximizeWindow,
   onMoveWindow,
+  onUpdateWindowTitle,
   bgColor,
   onBgColorChange,
   crtScanlines,
@@ -106,7 +109,22 @@ export default function Desktop({
       case 'my-pictures':
         return (
           <MyPicturesApp
+            onOpenViewer={(index) => {
+              const photo = SUPPLIED_PHOTOS[index] || SUPPLIED_PHOTOS[0];
+              onOpenApp('image-viewer', {
+                photoIndex: index,
+                title: `${photo.filename} - Windows Picture Viewer`
+              });
+            }}
             onOpenInPaint={() => onOpenApp('paint')}
+          />
+        );
+      case 'image-viewer':
+        return (
+          <ImageViewerApp
+            initialIndex={win.photoIndex || 0}
+            onOpenInPaint={() => onOpenApp('paint')}
+            onTitleChange={(newTitle) => onUpdateWindowTitle && onUpdateWindowTitle(win.id, newTitle)}
           />
         );
       case 'recycle-bin':

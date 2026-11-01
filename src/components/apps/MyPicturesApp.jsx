@@ -1,43 +1,35 @@
 import React, { useState } from 'react';
 import { RetroIcons } from '../RetroIcons';
 import { soundEffects } from '../../utils/soundEffects';
-import { SALLU_PICTURES } from '../../data/salluBhaiData';
+import { SUPPLIED_PHOTOS } from '../../data/salluBhaiData';
 
-const FOLDERS = [
-  'Salman_1995',
-  'Salman_1996',
-  'Salman_1997',
-  'Salman_1998',
-  'Salman_1999',
-  'Salman_2000',
-  'Salman_2001',
-  'Salman_2002',
-  'Salman_2003',
-  'Aishwarya_Rai',
-  'Somy_Ali',
-  'Sangeeta_Bijlani',
-  'Bollywood_Events'
-];
+export default function MyPicturesApp({ onOpenViewer, onOpenInPaint }) {
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
 
-export default function MyPicturesApp({ onOpenInPaint }) {
-  const [selectedFolder, setSelectedFolder] = useState(null); // null means root list of folders
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const selectedPhoto = SUPPLIED_PHOTOS[selectedPhotoIndex] || SUPPLIED_PHOTOS[0];
 
-  const handleFolderClick = (folder) => {
+  const handleThumbnailClick = (index) => {
     soundEffects.playClick();
-    setSelectedFolder(folder);
-    setSelectedPhoto(null);
+    setSelectedPhotoIndex(index);
   };
 
-  const handleBack = () => {
+  const handleThumbnailDoubleClick = (index) => {
     soundEffects.playClick();
-    setSelectedFolder(null);
-    setSelectedPhoto(null);
+    setSelectedPhotoIndex(index);
+    if (onOpenViewer) {
+      onOpenViewer(index);
+    }
   };
 
-  const filteredPhotos = selectedFolder
-    ? SALLU_PICTURES.filter((p) => p.folder === selectedFolder)
-    : [];
+  const handlePrev = () => {
+    soundEffects.playClick();
+    setSelectedPhotoIndex((prev) => (prev > 0 ? prev - 1 : SUPPLIED_PHOTOS.length - 1));
+  };
+
+  const handleNext = () => {
+    soundEffects.playClick();
+    setSelectedPhotoIndex((prev) => (prev < SUPPLIED_PHOTOS.length - 1 ? prev + 1 : 0));
+  };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#c0c0c0' }}>
@@ -46,44 +38,61 @@ export default function MyPicturesApp({ onOpenInPaint }) {
         <div className="win98-menu-item">File</div>
         <div className="win98-menu-item">Edit</div>
         <div className="win98-menu-item">View</div>
-        <div className="win98-menu-item">Image</div>
+        <div className="win98-menu-item">Favorites</div>
         <div className="win98-menu-item">Help</div>
       </div>
 
-      {/* Toolbar */}
+      {/* Explorer Toolbar */}
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
           gap: '4px',
           padding: '2px 4px',
-          borderBottom: '1px solid #808080'
+          borderBottom: '1px solid #808080',
+          backgroundColor: '#c0c0c0'
         }}
       >
         <button
           type="button"
           className="win98-btn"
-          disabled={!selectedFolder}
-          onClick={handleBack}
-          style={{ opacity: !selectedFolder ? 0.5 : 1 }}
+          onClick={handlePrev}
+          title="Previous Photo"
         >
-          ⬆ Up
+          ◀ Prev
         </button>
         <button
           type="button"
           className="win98-btn"
-          disabled={!selectedPhoto}
-          onClick={() => {
-            soundEffects.playClick();
-            onOpenInPaint && onOpenInPaint();
-          }}
-          style={{ opacity: !selectedPhoto ? 0.5 : 1 }}
+          onClick={handleNext}
+          title="Next Photo"
         >
-          🎨 Open in Paint
+          Next ▶
         </button>
+
+        <div style={{ width: '1px', height: '18px', backgroundColor: '#808080', margin: '0 4px' }} />
+
+        <button
+          type="button"
+          className="win98-btn"
+          onClick={() => onOpenViewer && onOpenViewer(selectedPhotoIndex)}
+          style={{ fontWeight: 'bold' }}
+          title="Open in Windows Picture Viewer"
+        >
+          🖼️ Open in Viewer
+        </button>
+        <button
+          type="button"
+          className="win98-btn"
+          onClick={() => onOpenInPaint && onOpenInPaint()}
+          title="Open in MS Paint"
+        >
+          🎨 Edit in Paint
+        </button>
+
         <div style={{ flex: 1 }} />
         <span style={{ fontSize: '10px', color: '#555', paddingRight: '4px' }}>
-          Period Photo Archive (1995–2003)
+          My Pictures - {SUPPLIED_PHOTOS.length} photographs
         </span>
       </div>
 
@@ -109,158 +118,105 @@ export default function MyPicturesApp({ onOpenInPaint }) {
             fontFamily: 'var(--win-font)'
           }}
         >
-          {selectedFolder ? `C:\\My Pictures\\${selectedFolder}` : 'C:\\My Pictures'}
+          C:\My Documents\My Pictures
         </div>
       </div>
 
-      {/* Main Content Area: Left Explorer + Right Photo Details */}
+      {/* Main Workspace: Left Grid of Thumbnails + Right Preview/Details Pane */}
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-        {/* Left Side: Folder or Photo Grid */}
+        {/* Thumbnails Grid (Direct display of all supplied photos, no subfolders) */}
         <div
           className="win98-content"
           style={{
             flex: 1,
-            padding: '12px',
+            padding: '16px',
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))',
-            gap: '14px',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
+            gap: '16px',
             alignContent: 'flex-start',
             backgroundColor: '#ffffff',
             overflow: 'auto'
           }}
         >
-          {!selectedFolder ? (
-            // Folder List (The 13 requested folders)
-            FOLDERS.map((folder) => {
-              const count = SALLU_PICTURES.filter((p) => p.folder === folder).length;
-              return (
+          {SUPPLIED_PHOTOS.map((photo, index) => {
+            const isSelected = selectedPhotoIndex === index;
+            return (
+              <div
+                key={photo.id}
+                onClick={() => handleThumbnailClick(index)}
+                onDoubleClick={() => handleThumbnailDoubleClick(index)}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  padding: '6px 4px',
+                  backgroundColor: isSelected ? '#e0f0ff' : 'transparent',
+                  border: isSelected ? '1px dotted #000080' : '1px solid transparent',
+                  borderRadius: '2px'
+                }}
+              >
+                {/* 3D Beveled Thumbnail Frame */}
                 <div
-                  key={folder}
-                  onDoubleClick={() => handleFolderClick(folder)}
-                  onClick={() => soundEffects.playClick()}
+                  className="win98-outset"
                   style={{
+                    width: '96px',
+                    height: '96px',
+                    backgroundColor: '#ffffff',
+                    padding: '3px',
                     display: 'flex',
-                    flexDirection: 'column',
                     alignItems: 'center',
-                    textAlign: 'center',
-                    cursor: 'default',
-                    padding: '4px',
-                    maxWidth: '100px'
+                    justifyContent: 'center',
+                    marginBottom: '6px',
+                    boxShadow: isSelected ? '0 0 4px #000080' : 'none'
                   }}
                 >
-                  <div style={{ marginBottom: '4px' }}>
-                    <RetroIcons.MyPictures size={32} />
-                  </div>
-                  <span
+                  <img
+                    src={photo.path}
+                    alt={photo.title}
                     style={{
-                      fontSize: '11px',
-                      fontFamily: 'var(--win-font)',
-                      padding: '1px 3px',
-                      wordBreak: 'break-word',
-                      lineHeight: '1.2'
+                      maxWidth: '100%',
+                      maxHeight: '100%',
+                      objectFit: 'cover',
+                      display: 'block'
                     }}
-                  >
-                    {folder}
-                  </span>
-                  <span style={{ fontSize: '9px', color: '#888' }}>
-                    {count} image{count !== 1 ? 's' : ''}
-                  </span>
+                  />
                 </div>
-              );
-            })
-          ) : filteredPhotos.length === 0 ? (
-            <div style={{ color: '#888', padding: '12px', fontSize: '11px' }}>
-              No images in this album.
-            </div>
-          ) : (
-            // Photos inside selected folder
-            filteredPhotos.map((photo) => {
-              const isSelected = selectedPhoto?.id === photo.id;
-              return (
-                <div
-                  key={photo.id}
-                  onClick={() => {
-                    soundEffects.playClick();
-                    setSelectedPhoto(photo);
-                  }}
-                  onDoubleClick={() => {
-                    soundEffects.playClick();
-                    onOpenInPaint && onOpenInPaint();
-                  }}
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    cursor: 'default',
-                    padding: '4px',
-                    maxWidth: '100px',
-                    backgroundColor: isSelected ? '#e0f0ff' : 'transparent',
-                    border: isSelected ? '1px dotted #000080' : '1px solid transparent'
-                  }}
-                >
-                  {/* Photo Thumbnail with retro border */}
-                  <div
-                    style={{
-                      width: '64px',
-                      height: '64px',
-                      backgroundColor: photo.color,
-                      border: '2px solid #333',
-                      boxShadow: '1px 1px 2px rgba(0,0,0,0.3)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#ffffff',
-                      marginBottom: '4px',
-                      position: 'relative',
-                      overflow: 'hidden'
-                    }}
-                  >
-                    <span style={{ fontSize: '16px' }}>📸</span>
-                    <span style={{ fontSize: '9px', fontWeight: 'bold' }}>{photo.year}</span>
-                    <div
-                      style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        backgroundColor: 'rgba(0,0,0,0.6)',
-                        fontSize: '8px',
-                        padding: '1px',
-                        textAlign: 'center'
-                      }}
-                    >
-                      .BMP
-                    </div>
-                  </div>
 
-                  <span
-                    style={{
-                      fontSize: '10px',
-                      fontFamily: 'var(--win-font)',
-                      padding: '1px 2px',
-                      backgroundColor: isSelected ? 'var(--win-blue-start)' : 'transparent',
-                      color: isSelected ? '#ffffff' : '#000000',
-                      wordBreak: 'break-word',
-                      lineHeight: '1.2'
-                    }}
-                  >
-                    {photo.title}
-                  </span>
-                </div>
-              );
-            })
-          )}
+                {/* Filename underneath */}
+                <span
+                  style={{
+                    fontSize: '11px',
+                    fontFamily: 'var(--win-font)',
+                    padding: '1px 3px',
+                    backgroundColor: isSelected ? 'var(--win-blue-start)' : 'transparent',
+                    color: isSelected ? '#ffffff' : '#000000',
+                    outline: isSelected ? '1px dotted #ffffff' : 'none',
+                    wordBreak: 'break-all',
+                    lineHeight: '1.2',
+                    maxWidth: '120px'
+                  }}
+                  title={photo.filename}
+                >
+                  {photo.filename}
+                </span>
+
+                <span style={{ fontSize: '9px', color: '#666', marginTop: '2px' }}>
+                  {photo.size}
+                </span>
+              </div>
+            );
+          })}
         </div>
 
-        {/* Right Side: Photo Metadata & Attribution Details Panel */}
+        {/* Right Details / Preview Pane */}
         <div
           className="win98-inset"
           style={{
-            width: '210px',
+            width: '230px',
             backgroundColor: '#c0c0c0',
-            padding: '8px',
+            padding: '10px',
             display: 'flex',
             flexDirection: 'column',
             gap: '8px',
@@ -268,49 +224,79 @@ export default function MyPicturesApp({ onOpenInPaint }) {
           }}
         >
           <div style={{ fontWeight: 'bold', fontSize: '11px', borderBottom: '1px solid #808080', paddingBottom: '3px' }}>
-            Image Information
+            Picture Preview
           </div>
 
-          {selectedPhoto ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '11px' }}>
-              <div>
-                <strong>Title:</strong>
-                <div>{selectedPhoto.title}</div>
+          {selectedPhoto && (
+            <>
+              {/* Preview image */}
+              <div
+                className="win98-inset"
+                style={{
+                  width: '100%',
+                  height: '140px',
+                  backgroundColor: '#000000',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '2px',
+                  cursor: 'pointer'
+                }}
+                onDoubleClick={() => onOpenViewer && onOpenViewer(selectedPhotoIndex)}
+                title="Double-click to open in Picture Viewer"
+              >
+                <img
+                  src={selectedPhoto.path}
+                  alt={selectedPhoto.title}
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    objectFit: 'contain'
+                  }}
+                />
               </div>
-              <div>
-                <strong>Year:</strong> {selectedPhoto.year}
-              </div>
-              <div>
-                <strong>Folder:</strong> {selectedPhoto.folder}
-              </div>
-              <div>
-                <strong>Context:</strong>
-                <div style={{ fontSize: '10px', color: '#222', marginTop: '2px', lineHeight: '1.3' }}>
-                  {selectedPhoto.caption}
+
+              {/* Photo Information */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '11px' }}>
+                <div>
+                  <strong>Filename:</strong>
+                  <div style={{ wordBreak: 'break-all', fontSize: '10px', color: '#000080' }}>
+                    {selectedPhoto.filename}
+                  </div>
+                </div>
+
+                <div>
+                  <strong>Title:</strong> {selectedPhoto.title}
+                </div>
+
+                <div>
+                  <strong>Dimensions:</strong> {selectedPhoto.dimensions}
+                </div>
+
+                <div>
+                  <strong>Size:</strong> {selectedPhoto.size}
+                </div>
+
+                <div>
+                  <strong>Film:</strong> {selectedPhoto.film} ({selectedPhoto.year})
+                </div>
+
+                <div style={{ marginTop: '4px', borderTop: '1px dashed #808080', paddingTop: '4px' }}>
+                  <div style={{ fontSize: '10px', color: '#333', lineHeight: '1.3' }}>
+                    {selectedPhoto.caption}
+                  </div>
                 </div>
               </div>
-              <div style={{ marginTop: '4px', borderTop: '1px dashed #808080', paddingTop: '4px' }}>
-                <strong style={{ fontSize: '10px', color: '#000080' }}>Source & Attribution:</strong>
-                <div style={{ fontSize: '9px', color: '#444', marginTop: '2px' }}>
-                  {selectedPhoto.source}
-                </div>
-              </div>
+
               <button
                 type="button"
                 className="win98-btn"
-                style={{ marginTop: '8px' }}
-                onClick={() => {
-                  soundEffects.playClick();
-                  onOpenInPaint && onOpenInPaint();
-                }}
+                style={{ marginTop: 'auto', fontWeight: 'bold' }}
+                onClick={() => onOpenViewer && onOpenViewer(selectedPhotoIndex)}
               >
-                Open in MS Paint
+                🖼️ View Full Image
               </button>
-            </div>
-          ) : (
-            <div style={{ color: '#666', fontSize: '10px', textAlign: 'center', marginTop: '20px' }}>
-              Select an image thumbnail to view full historical metadata, captions, and source attribution.
-            </div>
+            </>
           )}
         </div>
       </div>
@@ -318,10 +304,13 @@ export default function MyPicturesApp({ onOpenInPaint }) {
       {/* Status Bar */}
       <div className="win98-statusbar">
         <div className="win98-status-section" style={{ flex: 1 }}>
-          {selectedFolder ? `${filteredPhotos.length} photo(s)` : `${FOLDERS.length} photo albums`}
+          {selectedPhoto ? selectedPhoto.filename : `${SUPPLIED_PHOTOS.length} object(s)`}
         </div>
         <div className="win98-status-section" style={{ width: '130px' }}>
-          Format: Windows 24-bit Bitmap
+          {selectedPhoto ? `${selectedPhoto.dimensions} pixels` : 'JPEG Image'}
+        </div>
+        <div className="win98-status-section" style={{ width: '90px' }}>
+          {selectedPhoto ? selectedPhoto.size : ''}
         </div>
       </div>
     </div>

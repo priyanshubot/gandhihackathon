@@ -876,3 +876,50 @@ export const IE_BOOKMARKS = [
   { title: 'Film Magazines (Stardust India)', url: 'http://www.stardust-india.com/archive/2002' },
   { title: 'IMPORTANT', url: 'http://www.bhai-personal-vault.internal/classified' }
 ];
+
+export const SUPPLIED_PHOTOS = [
+  {
+    id: 'photo_1',
+    filename: 'HDDCS_Aankhon_Ki_Gustakhiyan_1999.jpg',
+    title: 'Aankhon Ki Gustakhiyan (1999)',
+    caption: 'Salman Khan kissing Aishwarya Rai\'s hand during the landmark "Aankhon Ki Gustakhiyan" sequence from Hum Dil De Chuke Sanam.',
+    year: '1999',
+    film: 'Hum Dil De Chuke Sanam',
+    path: '/assets/photos/HDDCS_Aankhon_Ki_Gustakhiyan_1999.jpg',
+    size: '82.2 KB',
+    dimensions: '640 x 640'
+  },
+  {
+    id: 'photo_2',
+    filename: 'HDDCS_Sameer_Nandini_Portrait_1999.jpg',
+    title: 'Sameer & Nandini Haveli Portrait (1999)',
+    caption: 'Salman Khan and Aishwarya Rai in traditional Rajasthani attire from Sanjay Leela Bhansali\'s musical drama.',
+    year: '1999',
+    film: 'Hum Dil De Chuke Sanam',
+    path: '/assets/photos/HDDCS_Sameer_Nandini_Portrait_1999.jpg',
+    size: '58.7 KB',
+    dimensions: '720 x 960'
+  },
+  {
+    id: 'photo_3',
+    filename: 'HDDCS_Chand_Chupa_Badal_Mein_1999.jpg',
+    title: 'Chand Chupa Badal Mein (1999)',
+    caption: 'Salman Khan and Aishwarya Rai looking up at the night sky in blue and silver traditional wear during "Chand Chupa Badal Mein".',
+    year: '1999',
+    film: 'Hum Dil De Chuke Sanam',
+    path: '/assets/photos/HDDCS_Chand_Chupa_Badal_Mein_1999.jpg',
+    size: '61.1 KB',
+    dimensions: '736 x 736'
+  },
+  {
+    id: 'photo_4',
+    filename: 'HDDCS_Promotional_Shoot_1999.jpg',
+    title: 'Hum Dil De Chuke Sanam Publicity Still (1999)',
+    caption: 'Official promotional publicity still of Salman Khan holding Aishwarya Rai in red bandhani and jewelry for Hum Dil De Chuke Sanam.',
+    year: '1999',
+    film: 'Hum Dil De Chuke Sanam',
+    path: '/assets/photos/HDDCS_Promotional_Shoot_1999.jpg',
+    size: '90.0 KB',
+    dimensions: '700 x 875'
+  }
+];

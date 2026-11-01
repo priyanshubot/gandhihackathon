@@ -51,6 +51,12 @@ const APP_CONFIGS = {
     width: 620,
     height: 430
   },
+  'image-viewer': {
+    title: 'Windows Picture Viewer',
+    icon: RetroIcons.MyPictures,
+    width: 660,
+    height: 520
+  },
   'recycle-bin': {
     title: 'Recycle Bin',
     icon: RetroIcons.RecycleBin,
@@ -131,9 +137,28 @@ export default function App() {
     };
 
     // If opening without custom props and window already exists, bring to front
-    const existingWindow = windows.find((w) => w.appId === appId && !customProps.content);
+    const existingWindow = windows.find((w) => w.appId === appId && !customProps.content && appId !== 'image-viewer');
     if (existingWindow) {
       focusWindow(existingWindow.id);
+      return;
+    }
+
+    // For image-viewer, if already open, update photoIndex and title and bring to front
+    const existingViewer = windows.find((w) => w.appId === 'image-viewer');
+    if (appId === 'image-viewer' && existingViewer) {
+      focusWindow(existingViewer.id);
+      setWindows((prev) =>
+        prev.map((win) =>
+          win.id === existingViewer.id
+            ? {
+                ...win,
+                photoIndex: customProps.photoIndex ?? win.photoIndex,
+                title: customProps.title || win.title,
+                isMinimized: false
+              }
+            : win
+        )
+      );
       return;
     }
 
@@ -210,6 +235,13 @@ export default function App() {
     );
   };
 
+  // Update window title dynamically (for Picture Viewer filename)
+  const updateWindowTitle = (id, newTitle) => {
+    setWindows((prev) =>
+      prev.map((win) => (win.id === id ? { ...win, title: newTitle } : win))
+    );
+  };
+
   // Taskbar button click handler
   const handleTaskClick = (id) => {
     const win = windows.find((w) => w.id === id);
@@ -251,6 +283,7 @@ export default function App() {
         onMinimizeWindow={minimizeWindow}
         onMaximizeWindow={maximizeWindow}
         onMoveWindow={moveWindow}
+        onUpdateWindowTitle={updateWindowTitle}
         bgColor={bgColor}
         onBgColorChange={setBgColor}
         crtScanlines={crtScanlines}
