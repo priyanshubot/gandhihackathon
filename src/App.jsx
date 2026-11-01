@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Desktop from './components/Desktop';
 import Taskbar from './components/Taskbar';
 import StartMenu from './components/StartMenu';
 import ShutDownModal from './components/ShutDownModal';
 import ShutDownScreen from './components/ShutDownScreen';
 import { RetroIcons } from './components/RetroIcons';
-import { soundEffects } from './utils/soundEffects';
+import {
+  playOpenSound,
+  playClickSound,
+  playCloseSound,
+  playMinimizeSound,
+  playMaximizeSound,
+  soundEffects
+} from '@/sounds';
 import './retro98.css';
 
 const APP_CONFIGS = {
@@ -14,6 +21,18 @@ const APP_CONFIGS = {
     icon: RetroIcons.Notepad,
     width: 500,
     height: 360
+  },
+  'wordpad': {
+    title: 'WordPad - TERE_NAAM_CLIMAX_DRAFT.DOC',
+    icon: RetroIcons.WordPad,
+    width: 600,
+    height: 420
+  },
+  'calculator': {
+    title: 'Calculator',
+    icon: RetroIcons.Calculator,
+    width: 250,
+    height: 270
   },
   'minesweeper': {
     title: 'Minesweeper',
@@ -68,6 +87,24 @@ const APP_CONFIGS = {
     icon: RetroIcons.DisplayProps,
     width: 390,
     height: 410
+  },
+  'msdos-prompt': {
+    title: 'MS-DOS Prompt',
+    icon: RetroIcons.MSDOSPrompt,
+    width: 560,
+    height: 350
+  },
+  'sound-recorder': {
+    title: 'Sound - Sound Recorder',
+    icon: RetroIcons.SoundRecorder,
+    width: 340,
+    height: 240
+  },
+  'about-windows': {
+    title: 'About Windows 98',
+    icon: RetroIcons.AboutWindows,
+    width: 420,
+    height: 320
   }
 };
 
@@ -115,20 +152,21 @@ export default function App() {
   const [crtScanlines, setCrtScanlines] = useState(false);
 
   // Focus a window
-  const focusWindow = (id) => {
-    const newZ = maxZIndex + 1;
-    setMaxZIndex(newZ);
+  const focusWindow = useCallback((id) => {
+    setMaxZIndex((prevZ) => {
+      const newZ = prevZ + 1;
+      setWindows((prev) =>
+        prev.map((win) =>
+          win.id === id ? { ...win, zIndex: newZ, isMinimized: false } : win
+        )
+      );
+      return newZ;
+    });
     setActiveWindowId(id);
-    setWindows((prev) =>
-      prev.map((win) =>
-        win.id === id ? { ...win, zIndex: newZ, isMinimized: false } : win
-      )
-    );
-  };
+  }, []);
 
-  // Open an app window
-  const openApp = (appId, customProps = {}) => {
-    soundEffects.playClick();
+  // Open an app window - Section 2.C
+  const openApp = useCallback((appId, customProps = {}) => {
     const config = APP_CONFIGS[appId] || {
       title: 'Application',
       icon: RetroIcons.Programs,
@@ -136,10 +174,11 @@ export default function App() {
       height: 300
     };
 
-    // If opening without custom props and window already exists, bring to front
+    // If opening without custom props and window already exists, bring to front and play click
     const existingWindow = windows.find((w) => w.appId === appId && !customProps.content && appId !== 'image-viewer');
     if (existingWindow) {
       focusWindow(existingWindow.id);
+      playClickSound();
       return;
     }
 
@@ -159,39 +198,42 @@ export default function App() {
             : win
         )
       );
+      playClickSound();
       return;
     }
 
-    const newZ = maxZIndex + 1;
-    setMaxZIndex(newZ);
+    // New window: play opening chime!
+    playOpenSound();
 
-    const offset = (windows.length % 6) * 24;
-    const newWindow = {
-      id: `win-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
-      appId,
-      title: customProps.title || config.title,
-      icon: config.icon,
-      x: Math.min(Math.max(60, 80 + offset), window.innerWidth - config.width - 20),
-      y: Math.min(Math.max(40, 50 + offset), window.innerHeight - config.height - 50),
-      width: config.width,
-      height: config.height,
-      isMinimized: false,
-      isMaximized: false,
-      zIndex: newZ,
-      ...customProps
-    };
+    setMaxZIndex((prevZ) => {
+      const newZ = prevZ + 1;
+      const offset = (windows.length % 6) * 24;
+      const newWindow = {
+        id: `win-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+        appId,
+        title: customProps.title || config.title,
+        icon: config.icon,
+        x: Math.min(Math.max(60, 80 + offset), window.innerWidth - config.width - 20),
+        y: Math.min(Math.max(40, 50 + offset), window.innerHeight - config.height - 50),
+        width: config.width,
+        height: config.height,
+        isMinimized: false,
+        isMaximized: false,
+        zIndex: newZ,
+        ...customProps
+      };
 
-    setWindows((prev) => [...prev, newWindow]);
-    setActiveWindowId(newWindow.id);
-  };
+      setWindows((prev) => [...prev, newWindow]);
+      setActiveWindowId(newWindow.id);
+      return newZ;
+    });
+  }, [windows, focusWindow]);
 
-  // Close window
-  const closeWindow = (id) => {
-    soundEffects.playClick();
+  // Close window - Section 2.C
+  const closeWindow = useCallback((id) => {
     setWindows((prev) => {
       const remaining = prev.filter((w) => w.id !== id);
       if (activeWindowId === id && remaining.length > 0) {
-        // Find highest z-index remaining window
         const highest = remaining.reduce((max, w) => (w.zIndex > max.zIndex ? w : max), remaining[0]);
         setActiveWindowId(highest.id);
       } else if (remaining.length === 0) {
@@ -199,11 +241,11 @@ export default function App() {
       }
       return remaining;
     });
-  };
+    playCloseSound();
+  }, [activeWindowId]);
 
-  // Minimize window
-  const minimizeWindow = (id) => {
-    soundEffects.playClick();
+  // Minimize window - Section 2.C
+  const minimizeWindow = useCallback((id) => {
     setWindows((prev) =>
       prev.map((win) => (win.id === id ? { ...win, isMinimized: true } : win))
     );
@@ -217,44 +259,44 @@ export default function App() {
         setActiveWindowId(null);
       }
     }
-  };
+    playMinimizeSound();
+  }, [windows, activeWindowId]);
 
-  // Maximize / Restore window
-  const maximizeWindow = (id) => {
-    soundEffects.playClick();
+  // Maximize / Restore window - Section 2.C
+  const toggleMaximize = useCallback((id) => {
     focusWindow(id);
     setWindows((prev) =>
       prev.map((win) => (win.id === id ? { ...win, isMaximized: !win.isMaximized } : win))
     );
-  };
+    playMaximizeSound();
+  }, [focusWindow]);
 
   // Move window
-  const moveWindow = (id, x, y) => {
+  const moveWindow = useCallback((id, x, y) => {
     setWindows((prev) =>
       prev.map((win) => (win.id === id ? { ...win, x, y } : win))
     );
-  };
+  }, []);
 
   // Update window title dynamically (for Picture Viewer filename)
-  const updateWindowTitle = (id, newTitle) => {
+  const updateWindowTitle = useCallback((id, newTitle) => {
     setWindows((prev) =>
       prev.map((win) => (win.id === id ? { ...win, title: newTitle } : win))
     );
-  };
+  }, []);
 
-  // Taskbar button click handler
-  const handleTaskClick = (id) => {
-    const win = windows.find((w) => w.id === id);
-    if (!win) return;
+  // Taskbar button click handler - Section 2.D
+  const handleTaskClick = useCallback((id) => {
+    const w = windows.find((x) => x.id === id);
+    if (!w) return;
 
-    if (win.isMinimized) {
+    if (w.isMinimized || activeWindowId !== id) {
       focusWindow(id);
-    } else if (activeWindowId === id) {
-      minimizeWindow(id);
+      playClickSound();
     } else {
-      focusWindow(id);
+      minimizeWindow(id);
     }
-  };
+  }, [windows, activeWindowId, focusWindow, minimizeWindow]);
 
   // If powered off
   if (isPoweredOff) {
@@ -281,7 +323,7 @@ export default function App() {
         onFocusWindow={focusWindow}
         onCloseWindow={closeWindow}
         onMinimizeWindow={minimizeWindow}
-        onMaximizeWindow={maximizeWindow}
+        onMaximizeWindow={toggleMaximize}
         onMoveWindow={moveWindow}
         onUpdateWindowTitle={updateWindowTitle}
         bgColor={bgColor}
@@ -298,12 +340,15 @@ export default function App() {
         onOpenShutDown={() => setIsShutDownModalOpen(true)}
       />
 
-      {/* Taskbar */}
+      {/* Taskbar - Section 2.E */}
       <Taskbar
         windows={windows}
         activeWindowId={activeWindowId}
         isStartMenuOpen={isStartMenuOpen}
-        onToggleStartMenu={() => setIsStartMenuOpen(!isStartMenuOpen)}
+        onToggleStartMenu={() => {
+          playClickSound();
+          setIsStartMenuOpen((v) => !v);
+        }}
         onTaskClick={handleTaskClick}
         crtScanlines={crtScanlines}
         onToggleCrt={setCrtScanlines}

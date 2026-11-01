@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RetroIcons } from '../RetroIcons';
-import { soundEffects } from '../../utils/soundEffects';
+import { playClickSound, playOpenSound } from '@/sounds';
 import { SUPPLIED_PHOTOS } from '../../data/salluBhaiData';
 
 export default function MyPicturesApp({ onOpenViewer, onOpenInPaint }) {
@@ -9,37 +9,45 @@ export default function MyPicturesApp({ onOpenViewer, onOpenInPaint }) {
   const selectedPhoto = SUPPLIED_PHOTOS[selectedPhotoIndex] || SUPPLIED_PHOTOS[0];
 
   const handleThumbnailClick = (index) => {
-    soundEffects.playClick();
+    playClickSound();
     setSelectedPhotoIndex(index);
   };
 
   const handleThumbnailDoubleClick = (index) => {
-    soundEffects.playClick();
+    playOpenSound();
     setSelectedPhotoIndex(index);
     if (onOpenViewer) {
       onOpenViewer(index);
     }
   };
 
-  const handlePrev = () => {
-    soundEffects.playClick();
-    setSelectedPhotoIndex((prev) => (prev > 0 ? prev - 1 : SUPPLIED_PHOTOS.length - 1));
+  const goPrev = () => {
+    playClickSound();
+    setSelectedPhotoIndex((s) => (s === null ? 0 : (s - 1 + SUPPLIED_PHOTOS.length) % SUPPLIED_PHOTOS.length));
   };
 
-  const handleNext = () => {
-    soundEffects.playClick();
-    setSelectedPhotoIndex((prev) => (prev < SUPPLIED_PHOTOS.length - 1 ? prev + 1 : 0));
+  const goNext = () => {
+    playClickSound();
+    setSelectedPhotoIndex((s) => (s === null ? 0 : (s + 1) % SUPPLIED_PHOTOS.length));
+  };
+
+  const handlePrev = goPrev;
+  const handleNext = goNext;
+
+  const handleOpenViewer = () => {
+    playOpenSound();
+    onOpenViewer && onOpenViewer(selectedPhotoIndex);
   };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#c0c0c0' }}>
       {/* Menu Bar */}
       <div className="win98-menubar">
-        <div className="win98-menu-item">File</div>
-        <div className="win98-menu-item">Edit</div>
-        <div className="win98-menu-item">View</div>
-        <div className="win98-menu-item">Favorites</div>
-        <div className="win98-menu-item">Help</div>
+        <div className="win98-menu-item" onClick={playClickSound}>File</div>
+        <div className="win98-menu-item" onClick={playClickSound}>Edit</div>
+        <div className="win98-menu-item" onClick={playClickSound}>View</div>
+        <div className="win98-menu-item" onClick={playClickSound}>Favorites</div>
+        <div className="win98-menu-item" onClick={playClickSound}>Help</div>
       </div>
 
       {/* Explorer Toolbar */}
@@ -75,7 +83,7 @@ export default function MyPicturesApp({ onOpenViewer, onOpenInPaint }) {
         <button
           type="button"
           className="win98-btn"
-          onClick={() => onOpenViewer && onOpenViewer(selectedPhotoIndex)}
+          onClick={handleOpenViewer}
           style={{ fontWeight: 'bold' }}
           title="Open in Windows Picture Viewer"
         >
@@ -84,7 +92,10 @@ export default function MyPicturesApp({ onOpenViewer, onOpenInPaint }) {
         <button
           type="button"
           className="win98-btn"
-          onClick={() => onOpenInPaint && onOpenInPaint()}
+          onClick={() => {
+            playClickSound();
+            onOpenInPaint && onOpenInPaint();
+          }}
           title="Open in MS Paint"
         >
           🎨 Edit in Paint
@@ -242,7 +253,7 @@ export default function MyPicturesApp({ onOpenViewer, onOpenInPaint }) {
                   padding: '2px',
                   cursor: 'pointer'
                 }}
-                onDoubleClick={() => onOpenViewer && onOpenViewer(selectedPhotoIndex)}
+                onDoubleClick={handleOpenViewer}
                 title="Double-click to open in Picture Viewer"
               >
                 <img
@@ -292,7 +303,7 @@ export default function MyPicturesApp({ onOpenViewer, onOpenInPaint }) {
                 type="button"
                 className="win98-btn"
                 style={{ marginTop: 'auto', fontWeight: 'bold' }}
-                onClick={() => onOpenViewer && onOpenViewer(selectedPhotoIndex)}
+                onClick={handleOpenViewer}
               >
                 🖼️ View Full Image
               </button>

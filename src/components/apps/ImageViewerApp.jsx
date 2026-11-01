@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { soundEffects } from '../../utils/soundEffects';
+import { playClickSound, playOpenSound } from '@/sounds';
 import { SUPPLIED_PHOTOS } from '../../data/salluBhaiData';
 
 export default function ImageViewerApp({
@@ -19,27 +19,30 @@ export default function ImageViewerApp({
     }
   }, [currentIndex, currentPhoto, onTitleChange]);
 
-  const handlePrev = () => {
-    soundEffects.playClick();
+  const goPrev = () => {
+    playClickSound();
     setRotation(0);
     setZoomLevel(1);
-    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : SUPPLIED_PHOTOS.length - 1));
+    setCurrentIndex((s) => (s === null ? 0 : (s - 1 + SUPPLIED_PHOTOS.length) % SUPPLIED_PHOTOS.length));
   };
 
-  const handleNext = () => {
-    soundEffects.playClick();
+  const goNext = () => {
+    playClickSound();
     setRotation(0);
     setZoomLevel(1);
-    setCurrentIndex((prev) => (prev < SUPPLIED_PHOTOS.length - 1 ? prev + 1 : 0));
+    setCurrentIndex((s) => (s === null ? 0 : (s + 1) % SUPPLIED_PHOTOS.length));
   };
+
+  const handlePrev = goPrev;
+  const handleNext = goNext;
 
   const handleZoomIn = () => {
-    soundEffects.playClick();
+    playClickSound();
     setZoomLevel((z) => Math.min(2.5, z + 0.25));
   };
 
   const handleZoomOut = () => {
-    soundEffects.playClick();
+    playClickSound();
     setZoomLevel((z) => Math.max(0.5, z - 0.25));
   };
 

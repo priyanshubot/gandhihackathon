@@ -438,5 +438,465 @@ export const RetroIcons = {
       <path d="M 14 18 L 14 15 C 14 13 18 13 18 15 L 18 18" fill="none" stroke="#606060" strokeWidth="1.5" />
       <circle cx="16" cy="21" r="1" fill="#000" />
     </svg>
+  ),
+
+  // Disk Defragmenter: Hard drive with multicolored data cluster blocks
+  DiskDefragmenter: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Drive Casing */}
+      <rect x="3" y="5" width="26" height="22" fill="#c0c0c0" stroke="#000000" strokeWidth="1" />
+      <rect x="4" y="6" width="24" height="1" fill="#ffffff" />
+      <rect x="4" y="7" width="1" height="19" fill="#ffffff" />
+      <rect x="28" y="6" width="1" height="21" fill="#808080" />
+      <rect x="4" y="26" width="25" height="1" fill="#808080" />
+
+      {/* Cluster Window / Grid */}
+      <rect x="6" y="8" width="20" height="16" fill="#000000" stroke="#808080" strokeWidth="1" />
+      {/* Clusters */}
+      <rect x="7" y="9" width="3" height="3" fill="#0000ff" />
+      <rect x="11" y="9" width="3" height="3" fill="#0000ff" />
+      <rect x="15" y="9" width="3" height="3" fill="#ff0000" />
+      <rect x="19" y="9" width="3" height="3" fill="#ffff00" />
+
+      <rect x="7" y="13" width="3" height="3" fill="#ff0000" />
+      <rect x="11" y="13" width="3" height="3" fill="#0000ff" />
+      <rect x="15" y="13" width="3" height="3" fill="#0000ff" />
+      <rect x="19" y="13" width="3" height="3" fill="#ffffff" />
+
+      <rect x="7" y="17" width="3" height="3" fill="#00ff00" />
+      <rect x="11" y="17" width="3" height="3" fill="#ffff00" />
+      <rect x="15" y="17" width="3" height="3" fill="#0000ff" />
+      <rect x="19" y="17" width="3" height="3" fill="#ff0000" />
+
+      <rect x="7" y="21" width="3" height="2" fill="#0000ff" />
+      <rect x="11" y="21" width="3" height="2" fill="#0000ff" />
+      <rect x="15" y="21" width="3" height="2" fill="#00ff00" />
+      <rect x="19" y="21" width="3" height="2" fill="#0000ff" />
+
+      {/* Drive Status LED */}
+      <rect x="25" y="24" width="2" height="2" fill="#00ff00" />
+    </svg>
+  ),
+
+  // Calculator: Classic retro desktop pocket calculator
+  Calculator: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Calculator Body (Beige) */}
+      <rect x="6" y="3" width="20" height="26" rx="1" fill="#d4d0c8" stroke="#000000" strokeWidth="1" />
+      <rect x="7" y="4" width="18" height="1" fill="#ffffff" />
+      <rect x="7" y="5" width="1" height="23" fill="#ffffff" />
+      <rect x="25" y="4" width="1" height="25" fill="#808080" />
+      <rect x="7" y="28" width="19" height="1" fill="#808080" />
+
+      {/* LCD Screen */}
+      <rect x="8" y="6" width="16" height="5" fill="#ffffff" stroke="#808080" strokeWidth="1" />
+      <rect x="9" y="7" width="14" height="3" fill="#c0dcc0" />
+      <rect x="20" y="8" width="2" height="2" fill="#000000" />
+
+      {/* Keypad Buttons */}
+      {/* Row 1 */}
+      <rect x="8" y="13" width="3" height="2" fill="#ff0000" stroke="#000" strokeWidth="0.5" />
+      <rect x="12" y="13" width="3" height="2" fill="#d4d0c8" stroke="#000" strokeWidth="0.5" />
+      <rect x="16" y="13" width="3" height="2" fill="#d4d0c8" stroke="#000" strokeWidth="0.5" />
+      <rect x="20" y="13" width="4" height="2" fill="#0000ff" stroke="#000" strokeWidth="0.5" />
+
+      {/* Row 2 */}
+      <rect x="8" y="17" width="3" height="2" fill="#ffffff" stroke="#000" strokeWidth="0.5" />
+      <rect x="12" y="17" width="3" height="2" fill="#ffffff" stroke="#000" strokeWidth="0.5" />
+      <rect x="16" y="17" width="3" height="2" fill="#ffffff" stroke="#000" strokeWidth="0.5" />
+      <rect x="20" y="17" width="4" height="2" fill="#0000ff" stroke="#000" strokeWidth="0.5" />
+
+      {/* Row 3 */}
+      <rect x="8" y="21" width="3" height="2" fill="#ffffff" stroke="#000" strokeWidth="0.5" />
+      <rect x="12" y="21" width="3" height="2" fill="#ffffff" stroke="#000" strokeWidth="0.5" />
+      <rect x="16" y="21" width="3" height="2" fill="#ffffff" stroke="#000" strokeWidth="0.5" />
+      <rect x="20" y="21" width="4" height="2" fill="#0000ff" stroke="#000" strokeWidth="0.5" />
+
+      {/* Row 4 */}
+      <rect x="8" y="25" width="7" height="2" fill="#ffffff" stroke="#000" strokeWidth="0.5" />
+      <rect x="16" y="25" width="3" height="2" fill="#ffffff" stroke="#000" strokeWidth="0.5" />
+      <rect x="20" y="25" width="4" height="2" fill="#0000ff" stroke="#000" strokeWidth="0.5" />
+    </svg>
+  ),
+
+  // Microsoft Chat: Classic Comic Chat character speech balloon
+  MicrosoftChat: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* White Comic Speech Bubble */}
+      <path d="M 4 5 L 28 5 L 28 20 L 16 20 L 10 26 L 11 20 L 4 20 Z" fill="#ffffff" stroke="#000000" strokeWidth="1.2" />
+      
+      {/* Comic character face inside */}
+      <circle cx="16" cy="12" r="5.5" fill="#ffcc00" stroke="#000" strokeWidth="0.5" />
+      {/* Eyes */}
+      <circle cx="14" cy="11" r="1" fill="#000" />
+      <circle cx="18" cy="11" r="1" fill="#000" />
+      {/* Smiling Mouth */}
+      <path d="M 14 14 Q 16 16 18 14" fill="none" stroke="#000" strokeWidth="0.8" />
+      {/* Comic Hair / Cap */}
+      <path d="M 11 10 C 13 7 19 7 21 10" fill="none" stroke="#603010" strokeWidth="1.2" />
+      
+      {/* Tiny companion bubble */}
+      <circle cx="27" cy="24" r="3" fill="#80c0ff" stroke="#000" strokeWidth="0.8" />
+    </svg>
+  ),
+
+  // NetMeeting: Beige monitor with globe and yellow meeting silhouettes
+  NetMeeting: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* CRT Monitor */}
+      <rect x="4" y="3" width="22" height="17" fill="#dcd6c8" stroke="#000000" strokeWidth="1" />
+      <rect x="6" y="5" width="18" height="13" fill="#000080" />
+      {/* Blue Globe on screen */}
+      <circle cx="15" cy="11" r="5" fill="#0080ff" />
+      <path d="M 11 11 Q 15 13 19 11" fill="none" stroke="#00ff00" strokeWidth="1" />
+      <path d="M 15 6 Q 16 11 15 16" fill="none" stroke="#00ff00" strokeWidth="1" />
+
+      {/* Monitor Base */}
+      <rect x="12" y="20" width="6" height="3" fill="#c0c0c0" stroke="#000" strokeWidth="0.5" />
+      <polygon points="9,23 21,23 23,25 7,25" fill="#dcd6c8" stroke="#000" strokeWidth="0.5" />
+
+      {/* Yellow Meeting People Silhouette in foreground */}
+      <circle cx="23" cy="18" r="3" fill="#ffcc00" stroke="#000" strokeWidth="0.5" />
+      <path d="M 19 27 C 19 23 27 23 27 27" fill="#ffcc00" stroke="#000" strokeWidth="0.5" />
+    </svg>
+  ),
+
+  // Network Neighborhood: Two desktop PCs connected by a blue network wire
+  NetworkNeighborhood: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Top Left PC */}
+      <rect x="2" y="3" width="14" height="11" fill="#d4d0c8" stroke="#000" strokeWidth="1" />
+      <rect x="4" y="5" width="10" height="7" fill="#008080" />
+      <rect x="7" y="14" width="4" height="2" fill="#808080" />
+
+      {/* Bottom Right PC */}
+      <rect x="16" y="16" width="14" height="11" fill="#d4d0c8" stroke="#000" strokeWidth="1" />
+      <rect x="18" y="18" width="10" height="7" fill="#008080" />
+      <rect x="21" y="27" width="4" height="2" fill="#808080" />
+
+      {/* Network Connecting Cable with hub / world */}
+      <path d="M 9 16 L 9 20 L 23 20 L 23 16" fill="none" stroke="#0000ff" strokeWidth="1.5" />
+      <rect x="14" y="18" width="4" height="4" fill="#ffcc00" stroke="#000" strokeWidth="0.5" />
+    </svg>
+  ),
+
+  // WordPad: Lined yellow notepad with blue cover and fountain pen
+  WordPad: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Lined Paper sheet */}
+      <rect x="4" y="4" width="22" height="25" fill="#ffffff" stroke="#000000" strokeWidth="1" />
+      <rect x="5" y="5" width="20" height="1" fill="#ffffea" />
+      
+      {/* Blue Header Stripe */}
+      <rect x="5" y="5" width="20" height="4" fill="#000080" />
+      
+      {/* Document text lines */}
+      <line x1="7" y1="12" x2="21" y2="12" stroke="#808080" strokeWidth="1" />
+      <line x1="7" y1="15" x2="23" y2="15" stroke="#808080" strokeWidth="1" />
+      <line x1="7" y1="18" x2="19" y2="18" stroke="#808080" strokeWidth="1" />
+      <line x1="7" y1="21" x2="22" y2="21" stroke="#808080" strokeWidth="1" />
+      <line x1="7" y1="24" x2="16" y2="24" stroke="#808080" strokeWidth="1" />
+
+      {/* Fountain Pen (angled) */}
+      <polygon points="14,28 27,11 29,13 16,30" fill="#111111" stroke="#000" strokeWidth="0.5" />
+      <polygon points="26,10 28,8 30,10 28,12" fill="#ffcc00" stroke="#000" strokeWidth="0.5" />
+      <polygon points="14,28 12,31 16,30" fill="#c0c0c0" stroke="#000" strokeWidth="0.5" />
+      <circle cx="14" cy="29" r="0.5" fill="#000" />
+    </svg>
+  ),
+
+  // ICQ: Iconic 1990s green daisy flower with 7 green petals, 1 red petal, yellow center
+  ICQ: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Petals */}
+      {/* Top (Red petal) */}
+      <circle cx="16" cy="7" r="4" fill="#ff0000" stroke="#880000" strokeWidth="0.5" />
+      {/* Top Right (Green) */}
+      <circle cx="23" cy="10" r="4" fill="#00cc00" stroke="#006600" strokeWidth="0.5" />
+      {/* Right (Green) */}
+      <circle cx="25" cy="16" r="4" fill="#00cc00" stroke="#006600" strokeWidth="0.5" />
+      {/* Bottom Right (Green) */}
+      <circle cx="23" cy="22" r="4" fill="#00cc00" stroke="#006600" strokeWidth="0.5" />
+      {/* Bottom (Green) */}
+      <circle cx="16" cy="25" r="4" fill="#00cc00" stroke="#006600" strokeWidth="0.5" />
+      {/* Bottom Left (Green) */}
+      <circle cx="9" cy="22" r="4" fill="#00cc00" stroke="#006600" strokeWidth="0.5" />
+      {/* Left (Green) */}
+      <circle cx="7" cy="16" r="4" fill="#00cc00" stroke="#006600" strokeWidth="0.5" />
+      {/* Top Left (Green) */}
+      <circle cx="9" cy="10" r="4" fill="#00cc00" stroke="#006600" strokeWidth="0.5" />
+
+      {/* Center disk */}
+      <circle cx="16" cy="16" r="5" fill="#ffea00" stroke="#cc9900" strokeWidth="1" />
+      <circle cx="16" cy="16" r="2" fill="#ffffff" />
+    </svg>
+  ),
+
+  // Solitaire: Card deck with Ace of Spades and blue patterned back
+  Solitaire: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Back card (blue pattern) */}
+      <rect x="9" y="3" width="18" height="24" rx="1" fill="#0044aa" stroke="#000" strokeWidth="1" />
+      <rect x="11" y="5" width="14" height="20" fill="#002277" />
+      <line x1="11" y1="5" x2="25" y2="25" stroke="#ffffff" strokeWidth="0.5" opacity="0.4" />
+
+      {/* Front card (Ace of Spades) */}
+      <rect x="5" y="6" width="18" height="24" rx="1" fill="#ffffff" stroke="#000" strokeWidth="1" />
+      {/* 'A' top left */}
+      <text x="7" y="11" fill="#000000" fontSize="6" fontWeight="bold" fontFamily="monospace">A</text>
+      
+      {/* Spade symbol in center */}
+      <path d="M 14 17 C 14 15 11 13 14 9 C 17 13 14 15 14 17 Z" fill="#000000" />
+      <circle cx="12.5" cy="16" r="2" fill="#000000" />
+      <circle cx="15.5" cy="16" r="2" fill="#000000" />
+      <polygon points="13.5,17 14.5,17 15,20 13,20" fill="#000000" />
+    </svg>
+  ),
+
+  // Registry Editor: 3D Registry cubes / keys breaking apart
+  RegistryEditor: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Base Cube 1 (Left) */}
+      <polygon points="5,14 11,10 17,14 11,18" fill="#88ccff" stroke="#000" strokeWidth="0.5" />
+      <polygon points="5,14 11,18 11,26 5,22" fill="#0066cc" stroke="#000" strokeWidth="0.5" />
+      <polygon points="11,18 17,14 17,22 11,26" fill="#004499" stroke="#000" strokeWidth="0.5" />
+
+      {/* Base Cube 2 (Right) */}
+      <polygon points="15,19 21,15 27,19 21,23" fill="#88ccff" stroke="#000" strokeWidth="0.5" />
+      <polygon points="15,19 21,23 21,29 15,25" fill="#0066cc" stroke="#000" strokeWidth="0.5" />
+      <polygon points="21,23 27,19 27,25 21,29" fill="#004499" stroke="#000" strokeWidth="0.5" />
+
+      {/* Floating Top Cube */}
+      <polygon points="11,7 17,3 23,7 17,11" fill="#ffff88" stroke="#000" strokeWidth="0.5" />
+      <polygon points="11,7 17,11 17,18 11,14" fill="#ffcc00" stroke="#000" strokeWidth="0.5" />
+      <polygon points="17,11 23,7 23,14 17,18" fill="#cc9900" stroke="#000" strokeWidth="0.5" />
+    </svg>
+  ),
+
+  // Outlook Express: White envelope with blue globe and red/blue speed streaks
+  OutlookExpress: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Blue Globe in background */}
+      <circle cx="21" cy="12" r="8" fill="#0080ff" stroke="#000080" strokeWidth="0.5" />
+      <ellipse cx="21" cy="12" rx="4" ry="8" fill="none" stroke="#ffffff" strokeWidth="0.8" opacity="0.7" />
+      <line x1="13" y1="12" x2="29" y2="12" stroke="#ffffff" strokeWidth="0.8" opacity="0.7" />
+
+      {/* White Envelope in front */}
+      <rect x="3" y="10" width="22" height="16" fill="#ffffff" stroke="#000" strokeWidth="1" />
+      <polygon points="3,10 14,19 25,10" fill="#ffffea" stroke="#000" strokeWidth="0.5" />
+      <line x1="3" y1="26" x2="11" y2="17" stroke="#808080" strokeWidth="0.5" />
+      <line x1="25" y1="26" x2="17" y2="17" stroke="#808080" strokeWidth="0.5" />
+
+      {/* Red/Gold Speed streaks */}
+      <path d="M 2 12 L 8 12" stroke="#ff0000" strokeWidth="1.5" />
+      <path d="M 1 15 L 6 15" stroke="#ffcc00" strokeWidth="1.5" />
+      <path d="M 2 18 L 5 18" stroke="#0000ff" strokeWidth="1.5" />
+    </svg>
+  ),
+
+  // FreeCell: Fan of 4 playing cards
+  FreeCell: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* 4 Overlapping cards */}
+      <rect x="3" y="8" width="13" height="19" rx="1" fill="#ffffff" stroke="#000" strokeWidth="0.8" />
+      <text x="4" y="13" fill="#ff0000" fontSize="5" fontWeight="bold">K</text>
+      <circle cx="9" cy="17" r="1.5" fill="#ff0000" />
+
+      <rect x="8" y="6" width="13" height="19" rx="1" fill="#ffffff" stroke="#000" strokeWidth="0.8" />
+      <text x="9" y="11" fill="#000000" fontSize="5" fontWeight="bold">Q</text>
+      <path d="M 14 15 L 15 17 L 13 17 Z" fill="#000000" />
+
+      <rect x="13" y="4" width="13" height="19" rx="1" fill="#ffffff" stroke="#000" strokeWidth="0.8" />
+      <text x="14" y="9" fill="#ff0000" fontSize="5" fontWeight="bold">J</text>
+      <polygon points="19,13 21,15 19,17 17,15" fill="#ff0000" />
+
+      <rect x="17" y="2" width="13" height="19" rx="1" fill="#ffffff" stroke="#000" strokeWidth="0.8" />
+      <text x="18" y="7" fill="#000000" fontSize="5" fontWeight="bold">A</text>
+      <circle cx="23" cy="11" r="1.5" fill="#000000" />
+    </svg>
+  ),
+
+  // Control Panel: Folder with sliders / controls and gears
+  ControlPanel: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Folder Back Tab */}
+      <path d="M 3 6 L 12 6 L 15 9 L 27 9 L 27 13 L 3 13 Z" fill="#d8a038" stroke="#000000" strokeWidth="1" />
+      
+      {/* Gear / Sliders sheet */}
+      <rect x="8" y="5" width="18" height="12" fill="#c0c0c0" stroke="#000" strokeWidth="0.5" />
+      {/* Gear */}
+      <circle cx="16" cy="10" r="3" fill="#808080" stroke="#000" strokeWidth="0.5" />
+      <circle cx="16" cy="10" r="1" fill="#ffffff" />
+      
+      {/* Folder Front */}
+      <polygon points="2,13 13,13 17,16 29,16 26,28 1,28" fill="#fcd764" stroke="#000000" strokeWidth="1" />
+      {/* 2 Slider Trackers on front */}
+      <line x1="6" y1="20" x2="22" y2="20" stroke="#806010" strokeWidth="1" />
+      <rect x="10" y="18" width="4" height="4" fill="#dcd6c8" stroke="#000" strokeWidth="0.5" />
+      <line x1="6" y1="24" x2="22" y2="24" stroke="#806010" strokeWidth="1" />
+      <rect x="17" y="22" width="4" height="4" fill="#dcd6c8" stroke="#000" strokeWidth="0.5" />
+    </svg>
+  ),
+
+  // About Windows: Windows 98 Flying Flag with circular Info badge
+  AboutWindows: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Blue Certificate/Shield Background */}
+      <rect x="3" y="3" width="26" height="26" rx="2" fill="#dcd6c8" stroke="#000" strokeWidth="1" />
+      <rect x="4" y="4" width="24" height="24" fill="#ffffff" />
+
+      {/* Windows Flying Flag in Center */}
+      <polygon points="8,9 14,8 14,14 8,15" fill="#ff3300" />
+      <polygon points="15,8 22,10 21,16 15,14" fill="#33cc33" />
+      <polygon points="8,16 14,15 14,21 8,22" fill="#0066ff" />
+      <polygon points="15,15 21,17 22,22 15,21" fill="#ffcc00" />
+
+      {/* Blue circular Info 'i' badge */}
+      <circle cx="23" cy="23" r="6" fill="#000080" stroke="#ffffff" strokeWidth="1" />
+      <text x="23" y="27" textAnchor="middle" fill="#ffffff" fontSize="9" fontWeight="bold" fontFamily="serif">i</text>
+    </svg>
+  ),
+
+  // Hearts: Playing card with large red heart
+  Hearts: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Card body */}
+      <rect x="6" y="3" width="20" height="26" rx="1" fill="#ffffff" stroke="#000" strokeWidth="1" />
+      {/* 'Q' top left */}
+      <text x="8" y="9" fill="#ff0000" fontSize="6" fontWeight="bold" fontFamily="monospace">Q</text>
+      
+      {/* Center Heart */}
+      <path d="M 16 14 C 16 11 11 11 11 15 C 11 19 16 23 16 23 C 16 23 21 19 21 15 C 21 11 16 11 16 14 Z" fill="#ff0000" stroke="#880000" strokeWidth="0.5" />
+    </svg>
+  ),
+
+  // MS-DOS Prompt: Black CRT screen with C:\_
+  MSDOSPrompt: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Black Window frame */}
+      <rect x="3" y="4" width="26" height="24" fill="#000000" stroke="#808080" strokeWidth="1" />
+      <rect x="4" y="5" width="24" height="4" fill="#000080" />
+      {/* MS-DOS Text */}
+      <text x="5" y="8" fill="#ffffff" fontSize="3" fontFamily="monospace">MS-DOS</text>
+      
+      {/* Prompt C:\_ */}
+      <text x="6" y="16" fill="#ffaa00" fontSize="7" fontWeight="bold" fontFamily="monospace">C:\_</text>
+      <rect x="20" y="14" width="4" height="2" fill="#00ff00" />
+    </svg>
+  ),
+
+  // Sound Recorder: Silver microphone with green audio wave
+  SoundRecorder: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Tape Cassette / Wave Box */}
+      <rect x="3" y="5" width="26" height="22" fill="#c0c0c0" stroke="#000" strokeWidth="1" />
+      <rect x="5" y="7" width="22" height="11" fill="#000000" />
+      {/* Green Sound Wave */}
+      <path d="M 6 12 L 9 12 L 11 8 L 13 16 L 15 9 L 17 15 L 19 10 L 21 13 L 25 12" fill="none" stroke="#00ff00" strokeWidth="1.2" />
+
+      {/* Microphone in bottom right */}
+      <rect x="8" y="21" width="3" height="3" fill="#ff0000" stroke="#000" strokeWidth="0.5" />
+      <rect x="13" y="21" width="3" height="3" fill="#000000" stroke="#000" strokeWidth="0.5" />
+      <polygon points="18,21 21,22.5 18,24" fill="#008000" />
+    </svg>
+  ),
+
+  // Mouse Properties: Beige 2-button mouse with cord and trackball
+  MouseProperties: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Mouse Cable */}
+      <path d="M 16 7 Q 16 2 21 3" fill="none" stroke="#808080" strokeWidth="1.2" />
+
+      {/* Mouse Body (Beige) */}
+      <rect x="9" y="7" width="14" height="21" rx="6" fill="#dcd6c8" stroke="#000" strokeWidth="1" />
+      <rect x="10" y="8" width="12" height="1" fill="#ffffff" />
+      
+      {/* Left/Right Button divider */}
+      <line x1="16" y1="7" x2="16" y2="15" stroke="#000000" strokeWidth="1" />
+      <line x1="9" y1="15" x2="23" y2="15" stroke="#808080" strokeWidth="1" />
+
+      {/* Highlight on left click button */}
+      <rect x="11" y="9" width="3" height="4" fill="#ffffff" opacity="0.6" />
+    </svg>
+  ),
+
+  // QBasic: Blue DOS textbook / executable with bold yellow letter "Q"
+  QBasic: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Book Cover (Blue) */}
+      <polygon points="5,5 23,2 28,6 28,26 10,29 5,26" fill="#0000aa" stroke="#000" strokeWidth="1" />
+      <polygon points="23,2 28,6 28,26 23,22" fill="#000088" />
+      <polygon points="6,6 22,3 22,22 6,25" fill="#0055ff" />
+
+      {/* Yellow Letter Q */}
+      <text x="13" y="18" textAnchor="middle" fill="#ffff00" fontSize="16" fontWeight="bold" fontFamily="sans-serif">Q</text>
+      {/* BASIC Subtitle */}
+      <text x="14" y="22" textAnchor="middle" fill="#ffffff" fontSize="4" fontFamily="monospace">BASIC</text>
+    </svg>
+  ),
+
+  // FrontPage Express: Web document with yellow construction crane
+  FrontPageExpress: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Web Document */}
+      <rect x="4" y="4" width="20" height="24" fill="#ffffff" stroke="#000" strokeWidth="1" />
+      <rect x="6" y="6" width="16" height="3" fill="#000080" />
+      <line x1="6" y1="12" x2="18" y2="12" stroke="#808080" strokeWidth="1" />
+      <line x1="6" y1="15" x2="20" y2="15" stroke="#808080" strokeWidth="1" />
+      
+      {/* Yellow Construction Crane */}
+      <polygon points="16,28 20,10 24,10 28,28" fill="#ffcc00" stroke="#000" strokeWidth="0.5" />
+      <line x1="20" y1="10" x2="12" y2="16" stroke="#ffcc00" strokeWidth="2" />
+      <line x1="12" y1="16" x2="12" y2="22" stroke="#000000" strokeWidth="1" />
+      <rect x="10" y="22" width="4" height="4" fill="#ff0000" />
+    </svg>
+  ),
+
+  // Game Center: Retro arcade joystick / gamepad
+  GameCenter: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      {/* Joystick Base (Dark Gray) */}
+      <polygon points="5,22 10,16 22,16 27,22 24,28 8,28" fill="#404040" stroke="#000" strokeWidth="1" />
+      <polygon points="6,22 10,17 22,17 26,22" fill="#707070" />
+
+      {/* Joystick Shaft */}
+      <line x1="16" y1="16" x2="16" y2="8" stroke="#a0a0a0" strokeWidth="3" />
+      <line x1="16" y1="16" x2="16" y2="8" stroke="#ffffff" strokeWidth="1" />
+
+      {/* Red Ball Top */}
+      <circle cx="16" cy="7" r="5" fill="#ff0000" stroke="#880000" strokeWidth="0.5" />
+      <circle cx="14" cy="5" r="1.5" fill="#ffffff" />
+
+      {/* Buttons on Base */}
+      <circle cx="21" cy="22" r="2" fill="#ffff00" stroke="#000" strokeWidth="0.5" />
+      <circle cx="24" cy="25" r="2" fill="#00ff00" stroke="#000" strokeWidth="0.5" />
+    </svg>
+  ),
+
+  // Critical Error Icon: Red circle with thick white X
+  CriticalError: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      <circle cx="16" cy="16" r="14" fill="#cc0000" stroke="#660000" strokeWidth="1.5" />
+      <line x1="10" y1="10" x2="22" y2="22" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="square" />
+      <line x1="22" y1="10" x2="10" y2="22" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="square" />
+    </svg>
+  ),
+
+  // Warning Icon: Yellow triangle with black exclamation
+  WarningIcon: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      <polygon points="16,3 30,28 2,28" fill="#ffcc00" stroke="#000000" strokeWidth="1.5" />
+      <line x1="16" y1="11" x2="16" y2="20" stroke="#000000" strokeWidth="2.5" />
+      <circle cx="16" cy="24" r="1.5" fill="#000000" />
+    </svg>
+  ),
+
+  // Information Icon: Blue circle with white i
+  InfoIcon: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      <circle cx="16" cy="16" r="14" fill="#0055dd" stroke="#002288" strokeWidth="1.5" />
+      <circle cx="16" cy="10" r="2" fill="#ffffff" />
+      <rect x="14.5" y="14" width="3" height="9" fill="#ffffff" />
+    </svg>
   )
 };

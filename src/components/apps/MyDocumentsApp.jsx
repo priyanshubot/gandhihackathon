@@ -1,26 +1,29 @@
 import React, { useState } from 'react';
 import { RetroIcons } from '../RetroIcons';
-import { soundEffects } from '../../utils/soundEffects';
+import { playClickSound, playErrorSound, soundEffects } from '@/sounds';
 import { SALLU_DOCUMENTS_TREE } from '../../data/salluBhaiData';
+import { EmotionalErrorPopup, CorruptedFilePopup } from '../ErrorPopups';
 
 export default function MyDocumentsApp({ onOpenFile, onUnlockZip }) {
   const [folderPath, setFolderPath] = useState([SALLU_DOCUMENTS_TREE]);
   const [selectedId, setSelectedId] = useState(null);
+  const [showEmotionalPopup, setShowEmotionalPopup] = useState(false);
+  const [showCorruptedPopup, setShowCorruptedPopup] = useState(false);
+  const [corruptedFileName, setCorruptedFileName] = useState('');
 
   const currentFolder = folderPath[folderPath.length - 1];
 
   const handleItemClick = (item) => {
-    soundEffects.playClick();
+    playClickSound();
     setSelectedId(item.id);
   };
 
   const handleItemDoubleClick = (item) => {
-    soundEffects.playClick();
+    playClickSound();
     if (item.type === 'folder') {
       if (item.isSecret) {
-        soundEffects.playError();
-        const proceed = confirm("WARNING: This directory contains private reflections from 2002.\nDo you wish to enter?");
-        if (!proceed) return;
+        setShowEmotionalPopup(true);
+        return;
       }
       setFolderPath((prev) => [...prev, item]);
       setSelectedId(null);
@@ -48,8 +51,8 @@ export default function MyDocumentsApp({ onOpenFile, onUnlockZip }) {
         content: zipItem.secretContent
       });
     } else {
-      soundEffects.playError();
-      alert('Error: CRC Check Failed. Incorrect password.');
+      setCorruptedFileName(zipItem.name);
+      setShowCorruptedPopup(true);
     }
   };
 
@@ -227,6 +230,20 @@ export default function MyDocumentsApp({ onOpenFile, onUnlockZip }) {
           Galaxy HD (C:)
         </div>
       </div>
+
+      {/* Popups */}
+      {showEmotionalPopup && (
+        <EmotionalErrorPopup
+          onClose={() => setShowEmotionalPopup(false)}
+        />
+      )}
+
+      {showCorruptedPopup && (
+        <CorruptedFilePopup
+          fileName={corruptedFileName || 'PROTECTED_DOCUMENT.DOC'}
+          onClose={() => setShowCorruptedPopup(false)}
+        />
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { RetroIcons } from './RetroIcons';
-import { soundEffects } from '../utils/soundEffects';
+import { playClickSound, soundEffects } from '@/sounds';
 
 export default function Taskbar({
   windows,
@@ -35,7 +35,7 @@ export default function Taskbar({
     const nextMute = !isMuted;
     setIsMuted(nextMute);
     soundEffects.muted = nextMute;
-    if (!nextMute) soundEffects.playClick();
+    if (!nextMute) playClickSound();
   };
 
   return (
@@ -44,10 +44,7 @@ export default function Taskbar({
       <button
         type="button"
         className={`win98-btn win98-start-btn ${isStartMenuOpen ? 'pressed' : ''}`}
-        onClick={() => {
-          soundEffects.playClick();
-          onToggleStartMenu();
-        }}
+        onClick={onToggleStartMenu}
       >
         <RetroIcons.WindowsLogo size={16} />
         <span>Start</span>
@@ -65,10 +62,7 @@ export default function Taskbar({
               key={win.id}
               type="button"
               className={`win98-btn win98-task-btn ${isActive ? 'active' : ''}`}
-              onClick={() => {
-                soundEffects.playClick();
-                onTaskClick(win.id);
-              }}
+              onClick={() => onTaskClick(win.id)}
               title={win.title}
             >
               {Icon && <Icon size={14} />}
