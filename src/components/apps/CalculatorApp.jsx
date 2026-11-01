@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { playClickSound } from '@/sounds';
+import React, { useState, useEffect } from 'react';
+import { playClickSound, playOpenSound } from '@/sounds';
 
 export default function CalculatorApp() {
   const [display, setDisplay] = useState('0');
@@ -7,6 +7,7 @@ export default function CalculatorApp() {
   const [operator, setOperator] = useState(null);
   const [waitingForOperand, setWaitingForOperand] = useState(false);
   const [memory, setMemory] = useState(0);
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
 
   const handleDigit = (digit) => {
     playClickSound();
@@ -56,58 +57,22 @@ export default function CalculatorApp() {
 
     if (prevValue === null) {
       setPrevValue(inputValue);
-    } else if (operator) {
-      const current = prevValue || 0;
-      let result = 0;
-      switch (operator) {
-        case '+':
-          result = current + inputValue;
-          break;
-        case '-':
-          result = current - inputValue;
-          break;
-        case '*':
-          result = current * inputValue;
-          break;
-        case '/':
-          result = inputValue === 0 ? 'Error' : current / inputValue;
-          break;
-        default:
-          result = inputValue;
-      }
-      setDisplay(String(result));
-      setPrevValue(result);
     }
 
     setWaitingForOperand(true);
     setOperator(nextOp);
   };
 
+  // Easter Egg: Pressing '=' never displays calculation result, always triggers the 6-7 GIF popup
   const handleEqual = () => {
     playClickSound();
-    if (!operator || prevValue === null) return;
-    const inputValue = parseFloat(display);
-    let result = 0;
-    switch (operator) {
-      case '+':
-        result = prevValue + inputValue;
-        break;
-      case '-':
-        result = prevValue - inputValue;
-        break;
-      case '*':
-        result = prevValue * inputValue;
-        break;
-      case '/':
-        result = inputValue === 0 ? 'Cannot divide by zero' : prevValue / inputValue;
-        break;
-      default:
-        result = inputValue;
-    }
-    setDisplay(String(result));
-    setPrevValue(null);
-    setOperator(null);
-    setWaitingForOperand(true);
+    playOpenSound();
+    setShowEasterEgg(true);
+  };
+
+  const handleCloseEasterEgg = () => {
+    playClickSound();
+    setShowEasterEgg(false);
   };
 
   const handleSign = () => {
@@ -122,8 +87,37 @@ export default function CalculatorApp() {
     setDisplay(String(Math.sqrt(val)));
   };
 
+  // Keyboard navigation support
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (showEasterEgg) {
+        if (e.key === 'Enter' || e.key === 'Escape') {
+          handleCloseEasterEgg();
+        }
+        return;
+      }
+      if (e.key >= '0' && e.key <= '9') {
+        handleDigit(parseInt(e.key, 10));
+      } else if (e.key === '.') {
+        handleDecimal();
+      } else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
+        handleOperator(e.key);
+      } else if (e.key === 'Enter' || e.key === '=') {
+        e.preventDefault();
+        handleEqual();
+      } else if (e.key === 'Backspace') {
+        handleBackspace();
+      } else if (e.key === 'Escape') {
+        handleClear();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showEasterEgg, display, prevValue, operator, waitingForOperand]);
+
   return (
-    <div style={{ backgroundColor: '#c0c0c0', padding: '6px', userSelect: 'none', width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ backgroundColor: '#c0c0c0', padding: '6px', userSelect: 'none', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}>
       {/* Menu Bar */}
       <div className="win98-menubar" style={{ margin: '-6px -6px 6px -6px' }}>
         <div className="win98-menu-item" onClick={playClickSound}>Edit</div>
@@ -198,8 +192,134 @@ export default function CalculatorApp() {
 
       <div style={{ display: 'flex', gap: '4px', marginTop: '4px' }}>
         <button type="button" className="win98-btn" style={{ flex: 1, fontSize: '11px', color: '#000080' }} onClick={handleSqrt}>sqrt</button>
-        <button type="button" className="win98-btn" style={{ flex: 2, fontWeight: 'bold', color: '#800000' }} onClick={handleEqual}>=</button>
+        <button
+          type="button"
+          className="win98-btn"
+          style={{ flex: 2, fontWeight: 'bold', color: '#800000' }}
+          onClick={handleEqual}
+          title="Calculate (=)"
+        >
+          =
+        </button>
       </div>
+
+      {/* Windows 98 6-7 Easter Egg Popup */}
+      {showEasterEgg && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            zIndex: 99999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          onClick={handleCloseEasterEgg}
+        >
+          <div
+            className="win98-window"
+            style={{
+              width: '380px',
+              maxWidth: '92vw',
+              backgroundColor: '#c0c0c0',
+              boxShadow: '3px 3px 12px rgba(0,0,0,0.5)',
+              cursor: 'default'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Title Bar */}
+            <div className="win98-titlebar">
+              <div className="win98-titlebar-text">
+                <span>Calculator.exe</span>
+              </div>
+              <div className="win98-window-controls">
+                <button
+                  type="button"
+                  className="win98-control-btn close"
+                  onClick={handleCloseEasterEgg}
+                  title="Close"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            {/* Dialog Body */}
+            <div
+              style={{
+                padding: '16px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '12px',
+                backgroundColor: '#c0c0c0'
+              }}
+            >
+              {/* Message Header */}
+              <div
+                style={{
+                  fontSize: '13px',
+                  fontWeight: 'bold',
+                  fontFamily: 'var(--win-font)',
+                  color: '#000080',
+                  textAlign: 'center',
+                  letterSpacing: '0.5px'
+                }}
+              >
+                THE ANSWER IS ALWAYS 6-7
+              </div>
+
+              {/* Centered 6-7 GIF */}
+              <div
+                className="win98-inset"
+                style={{
+                  backgroundColor: '#000000',
+                  padding: '4px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  minHeight: '200px',
+                  maxHeight: '280px',
+                  width: '100%',
+                  overflow: 'hidden'
+                }}
+              >
+                <img
+                  src="/assets/67.gif"
+                  alt="6-7 Easter Egg"
+                  onError={(e) => {
+                    if (!e.currentTarget.dataset.fallback) {
+                      e.currentTarget.dataset.fallback = 'true';
+                      e.currentTarget.src = '/assets/gif/67.gif';
+                    }
+                  }}
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '260px',
+                    objectFit: 'contain',
+                    display: 'block'
+                  }}
+                />
+              </div>
+
+              {/* OK Button */}
+              <button
+                type="button"
+                className="win98-btn"
+                style={{ minWidth: '80px', fontWeight: 'bold', marginTop: '4px' }}
+                onClick={handleCloseEasterEgg}
+                autoFocus
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
