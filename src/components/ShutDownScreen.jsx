@@ -40,7 +40,7 @@ export default function ShutDownScreen({ onPowerOn }) {
         </h1>
 
         <p style={{ color: '#666666', fontFamily: 'monospace', fontSize: '13px', marginBottom: '30px' }}>
-          THE ABANDONED COMPUTER // OMEGA TERMINAL 98-B
+          THE ABANDONED COMPUTER // SALMAN KHAN GALAXY APARTMENTS (1995–2003)
         </p>
 
         <button

@@ -91,6 +91,15 @@ export default function StartMenu({
               </div>
               <div
                 className="win98-start-item"
+                onClick={() => handleItemClick('my-pictures')}
+              >
+                <div className="win98-start-item-left">
+                  <RetroIcons.MyPictures size={16} />
+                  <span>My Pictures</span>
+                </div>
+              </div>
+              <div
+                className="win98-start-item"
                 onClick={() => handleItemClick('minesweeper')}
               >
                 <div className="win98-start-item-left">
@@ -132,7 +141,7 @@ export default function StartMenu({
                 position: 'absolute',
                 left: '100%',
                 top: 0,
-                width: '180px',
+                width: '210px',
                 backgroundColor: '#c0c0c0',
                 padding: '2px 1px',
                 boxShadow: '2px 2px 4px rgba(0,0,0,0.4)',
@@ -155,24 +164,60 @@ export default function StartMenu({
                 className="win98-start-item"
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleItemClick('notepad', { title: 'INCIDENT_LOG_1998.txt' });
+                  handleItemClick('notepad', { title: 'Galaxy_Apartments_Notes.txt' });
                 }}
               >
                 <div className="win98-start-item-left">
                   <RetroIcons.FileText size={16} />
-                  <span>INCIDENT_LOG_1998</span>
+                  <span>Galaxy_Apartments_Notes</span>
                 </div>
               </div>
               <div
                 className="win98-start-item"
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleItemClick('notepad', { title: 'CONFIDENTIAL.TXT' });
+                  handleItemClick('notepad', { title: 'Daily_Gym_Routine_1999.txt' });
                 }}
               >
                 <div className="win98-start-item-left">
                   <RetroIcons.FileText size={16} />
-                  <span>CONFIDENTIAL_MEMO</span>
+                  <span>Daily_Gym_Routine_1999</span>
+                </div>
+              </div>
+              <div
+                className="win98-start-item"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleItemClick('notepad', { title: 'blackbuck_case_notes.doc' });
+                }}
+              >
+                <div className="win98-start-item-left">
+                  <RetroIcons.FileText size={16} />
+                  <span>blackbuck_case_notes</span>
+                </div>
+              </div>
+              <div
+                className="win98-start-item"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleItemClick('notepad', { title: 'Relationship_Timeline_1999_2002.txt' });
+                }}
+              >
+                <div className="win98-start-item-left">
+                  <RetroIcons.FileText size={16} />
+                  <span>Relationship_Timeline</span>
+                </div>
+              </div>
+              <div
+                className="win98-start-item"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleItemClick('notepad', { title: 'FINAL_FINAL_REAL.doc' });
+                }}
+              >
+                <div className="win98-start-item-left">
+                  <RetroIcons.FileText size={16} />
+                  <span>FINAL_FINAL_REAL.doc</span>
                 </div>
               </div>
             </div>
@@ -249,18 +294,22 @@ export default function StartMenu({
               title: 'WINDOWS_HELP.TXT',
               content: `WINDOWS 98 HELP SYSTEM
 =======================
-PROJECT: The Abandoned Computer (Hackathon Edition)
+PROJECT: The Abandoned Computer (Sallu Bhai 1995–2003 Edition)
 
-Welcome to the abandoned computer. This machine was left active since late October 1998.
+Welcome to Salman Khan's fictional abandoned personal computer from late 2003.
 To explore:
-1. Double-click any desktop icon to launch its application.
-2. Check My Documents for secret notes and incident reports.
-3. Check the Recycle Bin to recover purged security files.
-4. Open Internet Explorer to access the mirror archive.
-5. Play Minesweeper if you need a break between discoveries.
-6. Right-click the desktop to change wallpaper in Display Properties.
+1. Double-click My Documents to browse:
+   - Personal (Galaxy Apartments, Gym routines, Panvel farm)
+   - Bollywood (Tere Naam frenzy, Karan Arjun, Sooraj Barjatya)
+   - Relationships (Aishwarya Rai, Somy Ali, Sangeeta Bijlani timelines)
+   - Legal Documents (Blackbuck Case 1998 historical facts & procedural notes)
+   - Film Projects & Newspaper Clippings
+   - Downloads (FINAL_FINAL_REAL.doc & password protected ZIP)
+2. Double-click My Pictures to browse 13 dedicated photo archives (1995 to 2003) with source attributions.
+3. Open Internet Explorer to inspect 12 seeded search queries and the "IMPORTANT" bookmark Easter egg.
+4. Try to find the secret folder DON'T_OPEN and the password for the ZIP file (Hint: "prem").
 
-Good luck uncovering the secrets of Omega Facility.`
+All data is historically bounded to December 2003.`
             });
           }}
         >
@@ -276,13 +325,20 @@ Good luck uncovering the secrets of Omega Facility.`
           onMouseEnter={() => setHoveredSubmenu(null)}
           onClick={() => {
             soundEffects.playClick();
-            const cmd = prompt('Type the name of a program, folder, document, or Internet resource:', 'notepad');
+            const cmd = prompt('Type the name of a program, folder, document, or Easter egg:', 'notepad');
             if (cmd) {
               const lower = cmd.trim().toLowerCase();
-              if (lower.includes('paint') || lower.includes('pbrush')) handleItemClick('paint');
+              if (lower === 'biceps' || lower === 'sallu' || lower === 'radhe' || lower === 'tere naam') {
+                soundEffects.playError();
+                alert(
+                  'SALLU.EXE has caused an exception in BICEPS.DLL at address 0028:C0034B98.\n\nReason: 500 pushups completed before 6:00 AM on Carter Road.\nHeart.dll emotional overflow detected.\nPress OK to pump iron.'
+                );
+              } else if (lower.includes('paint') || lower.includes('pbrush')) handleItemClick('paint');
+              else if (lower.includes('picture') || lower.includes('photo')) handleItemClick('my-pictures');
               else if (lower.includes('mine') || lower.includes('winmine')) handleItemClick('minesweeper');
               else if (lower.includes('iexplore') || lower.includes('internet')) handleItemClick('internet-explorer');
-              else if (lower.includes('explorer') || lower.includes('computer')) handleItemClick('my-computer');
+              else if (lower.includes('doc') || lower.includes('document')) handleItemClick('my-documents');
+              else if (lower.includes('computer')) handleItemClick('my-computer');
               else handleItemClick('notepad', { title: `${cmd}.txt` });
             }
           }}

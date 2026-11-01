@@ -25,15 +25,17 @@ export default function PaintApp() {
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Initial sketch: "OMEGA LAB - 1998" blueprint / retro smiley
+    // Initial sketch: "LORD SHIVA SKETCH - GALAXY STUDIO // 2002"
     ctx.fillStyle = '#000080';
     ctx.font = 'bold 12px "Courier New"';
-    ctx.fillText('FACILITY BLUEPRINT // 1998', 15, 25);
+    ctx.fillText('LORD SHIVA SKETCH - GALAXY STUDIO // 2002', 15, 25);
     ctx.strokeStyle = '#c0c0c0';
     ctx.lineWidth = 1;
-    ctx.strokeRect(15, 35, 120, 80);
-    ctx.fillStyle = '#ff0000';
-    ctx.fillText('[RESTRICTED AREA]', 20, 60);
+    ctx.strokeRect(15, 35, 180, 80);
+    ctx.fillStyle = '#b03000';
+    ctx.fillText('[CHARCOAL & OIL STUDY]', 22, 60);
+    ctx.fillStyle = '#555555';
+    ctx.fillText('Trishul & Crescent Moon Outline', 22, 80);
   }, []);
 
   const getCanvasCoords = (e) => {

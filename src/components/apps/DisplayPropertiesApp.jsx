@@ -3,12 +3,12 @@ import { soundEffects } from '../../utils/soundEffects';
 
 const COLOR_SCHEMES = [
   { name: 'Teal (Default Windows 98)', value: '#008080' },
-  { name: 'Deep Navy Blue', value: '#000080' },
-  { name: 'Retro Black (Terminal)', value: '#000000' },
-  { name: 'Omega Maroon', value: '#800000' },
-  { name: 'Olive Green', value: '#808000' },
-  { name: 'Windows Standard Gray', value: '#808080' },
-  { name: 'Sublevel Matrix Green', value: '#003311' }
+  { name: 'Hum Dil De Chuke Sanam Navy', value: '#000080' },
+  { name: 'Tere Naam Radhe Black', value: '#111111' },
+  { name: 'Panvel Farmhouse Green', value: '#1a3311' },
+  { name: 'O O Jaane Jaana Denim Blue', value: '#104e8b' },
+  { name: 'Bandra Bandstand Sunset Maroon', value: '#701020' },
+  { name: 'Windows Standard Gray', value: '#808080' }
 ];
 
 export default function DisplayPropertiesApp({

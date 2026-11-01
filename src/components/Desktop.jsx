@@ -7,6 +7,7 @@ import PaintApp from './apps/PaintApp';
 import InternetExplorerApp from './apps/InternetExplorerApp';
 import MyComputerApp from './apps/MyComputerApp';
 import MyDocumentsApp from './apps/MyDocumentsApp';
+import MyPicturesApp from './apps/MyPicturesApp';
 import RecycleBinApp from './apps/RecycleBinApp';
 import DisplayPropertiesApp from './apps/DisplayPropertiesApp';
 import ContextMenu from './ContextMenu';
@@ -15,6 +16,7 @@ import { soundEffects } from '../utils/soundEffects';
 const DESKTOP_SHORTCUTS = [
   { id: 'my-computer', label: 'My Computer', icon: RetroIcons.MyComputer },
   { id: 'my-documents', label: 'My Documents', icon: RetroIcons.MyDocuments },
+  { id: 'my-pictures', label: 'My Pictures', icon: RetroIcons.MyPictures },
   { id: 'internet-explorer', label: 'Internet Explorer', icon: RetroIcons.InternetExplorer },
   { id: 'recycle-bin', label: 'Recycle Bin', icon: RetroIcons.RecycleBin },
   { id: 'notepad', label: 'Notepad', icon: RetroIcons.Notepad },
@@ -99,6 +101,12 @@ export default function Desktop({
         return (
           <MyDocumentsApp
             onOpenFile={(appId, props) => onOpenApp(appId, props)}
+          />
+        );
+      case 'my-pictures':
+        return (
+          <MyPicturesApp
+            onOpenInPaint={() => onOpenApp('paint')}
           />
         );
       case 'recycle-bin':

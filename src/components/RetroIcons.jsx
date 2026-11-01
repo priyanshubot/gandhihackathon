@@ -397,5 +397,46 @@ export const RetroIcons = {
       <rect x="6" y="11" width="4" height="2" fill="#808080" />
       <rect x="4" y="13" width="8" height="1" fill="#000" />
     </svg>
+  ),
+
+  // My Pictures Icon
+  MyPictures: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      <path d="M 3 6 L 12 6 L 15 9 L 27 9 L 27 13 L 3 13 Z" fill="#d8a038" stroke="#000000" strokeWidth="1" />
+      {/* Photograph sticking out */}
+      <rect x="10" y="4" width="16" height="12" fill="#ffffff" stroke="#000" strokeWidth="0.5" />
+      <rect x="12" y="6" width="12" height="8" fill="#80c0ff" />
+      <circle cx="15" cy="8" r="1.5" fill="#ffcc00" />
+      <polygon points="12,14 16,10 18,12 21,9 24,14" fill="#008000" />
+      {/* Folder front */}
+      <polygon points="2,13 13,13 17,16 29,16 26,28 1,28" fill="#fcd764" stroke="#000000" strokeWidth="1" />
+      <polygon points="3,14 13,14 16,17 28,17 25,27 2,27" fill="#ffe988" />
+    </svg>
+  ),
+
+  // Zip Archive Icon
+  ZipFile: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      <path d="M 4 4 L 20 4 L 28 12 L 28 28 L 4 28 Z" fill="#f0e080" stroke="#000" strokeWidth="1" />
+      <polygon points="20,4 20,12 28,12" fill="#d0c060" stroke="#000" strokeWidth="0.5" />
+      {/* Zipper down the center */}
+      <rect x="14" y="8" width="4" height="18" fill="#a0a0a0" stroke="#000" strokeWidth="0.5" />
+      {[10, 13, 16, 19, 22].map((y) => (
+        <rect key={y} x="14" y={y} width="4" height="1.5" fill="#ffffff" />
+      ))}
+      <rect x="13" y="22" width="6" height="5" fill="#ffcc00" stroke="#000" strokeWidth="0.5" />
+    </svg>
+  ),
+
+  // Secret Folder with Lock
+  SecretFolder: ({ size = 32, className = '' }) => (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} style={{ imageRendering: 'pixelated' }}>
+      <path d="M 3 6 L 12 6 L 15 9 L 27 9 L 27 13 L 3 13 Z" fill="#b02020" stroke="#000" strokeWidth="1" />
+      <polygon points="2,13 13,13 17,16 29,16 26,28 1,28" fill="#d83030" stroke="#000" strokeWidth="1" />
+      {/* Padlock */}
+      <rect x="12" y="18" width="8" height="7" fill="#ffcc00" stroke="#000" strokeWidth="0.5" />
+      <path d="M 14 18 L 14 15 C 14 13 18 13 18 15 L 18 18" fill="none" stroke="#606060" strokeWidth="1.5" />
+      <circle cx="16" cy="21" r="1" fill="#000" />
+    </svg>
   )
 };

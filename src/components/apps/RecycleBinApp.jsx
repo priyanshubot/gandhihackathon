@@ -5,21 +5,44 @@ import { soundEffects } from '../../utils/soundEffects';
 const INITIAL_TRASH = [
   {
     id: 'trash1',
-    name: 'OVERRIDE_KEY_ALPHA.key',
+    name: 'Draft_Lyrics_O_O_Jaane_Jaana_1997.txt',
     icon: RetroIcons.FileText,
-    originalLoc: 'C:\\RESTRICTED_LABS',
-    dateDeleted: '10/24/98 03:12 AM',
+    originalLoc: 'C:\\My Documents\\Film Projects',
+    dateDeleted: '04/18/1998 02:15 AM',
     size: '1 KB',
-    content: `[EMERGENCY OVERRIDE KEY]\nKEY: 4821-OMEGA-RESCUE\nClearance: LEVEL 5\nDO NOT DISTRIBUTE`
+    content: `[ROUGH SONG NOTES - SOHAIL & JATIN-LALIT]
+SONG: O O Jaane Jaana
+SINGER: Kamaal Khan
+FILM: Pyaar Kiya To Darna Kya (1998)
+
+"I told Sohail: I won't wear any shirt in this song. Just torn jeans, boots, and the electric guitar.
+Let's make it a high-energy anthem for the youth.
+Chorus: O O Jaane Jaana, Dhoonde Tujhe Deewana..."`
   },
   {
     id: 'trash2',
-    name: 'security_cam_04_dump.txt',
+    name: 'Old_Phone_Directory_1995.txt',
     icon: RetroIcons.FileText,
-    originalLoc: 'C:\\WINDOWS\\TEMP',
-    dateDeleted: '10/24/98 03:09 AM',
+    originalLoc: 'C:\\My Documents\\Personal',
+    dateDeleted: '09/01/1999 11:40 PM',
     size: '2 KB',
-    content: `[CCTV LOG FEED 04 - SUBLEVEL 3]\n02:59:01 - Normal\n03:01:22 - Motion sensor tripped\n03:01:45 - Video feed obscured by electromagnetic distortion\n03:02:10 - Feed lost.`
+    content: `[OLD BANDRA LANDLINE DIRECTORY - 1995]
+- Salim Khan Saab Study: 022-2642xxxx
+- Mehboob Studio Reception: 022-2642xxxx
+- Film City Goregaon Gate: 022-2840xxxx
+- Bandra Gymkhana Desk: 022-2640xxxx
+- Sajid Nadiadwala Office: 022-2634xxxx`
+  },
+  {
+    id: 'trash3',
+    name: 'Deleted_Rough_Script_2001.txt',
+    icon: RetroIcons.FileText,
+    originalLoc: 'C:\\My Documents\\Film Projects',
+    dateDeleted: '07/11/2001 04:30 PM',
+    size: '2 KB',
+    content: `[SCRAPPED SCENE DRAFT - CHORI CHORI CHUPKE CHUPKE]
+Raj Malhotra dialogue revision:
+"Family comes first, no matter what sacrifices have to be made."`
   }
 ];
 

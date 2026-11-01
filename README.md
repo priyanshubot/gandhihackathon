@@ -1,24 +1,22 @@
-# The Abandoned Computer - Windows 98 Desktop Interface
+# The Abandoned Computer (Sallu Bhai Edition: 1995–2003)
 
-A retro Windows 98 desktop interface built for the hackathon project **The Abandoned Computer**.
+A retro Windows 98 desktop interface recreating a fictional abandoned personal computer associated with Salman Khan's Bollywood life between 1995 and 2003.
 
 ## Overview
 
-This project recreates the authentic look, feel, and interactions of a Windows 98 operating system desktop directly in the browser:
-- Classic teal (`#008080`) desktop wallpaper.
-- Authentic 3D beveled windows, taskbar, start menu, and context menus.
-- Classic navy-to-blue gradient titlebars with minimize, maximize/restore, and close buttons.
-- Functional draggable windows with proper z-index and focus management.
-- Desktop shortcuts: My Computer, My Documents, Internet Explorer, Recycle Bin, Notepad, Paint, and Minesweeper.
-- Built-in interactive apps:
-  - **Notepad**: Text editor with the facility lore memo.
-  - **Minesweeper**: Playable 9x9 Minesweeper with digital LED counters and animated smiley button.
-  - **Paint**: Functional drawing canvas with color palette and brush tools.
-  - **Internet Explorer**: Retro browser with vintage 1998 web archives.
-  - **My Computer & My Documents**: File explorers with mystery logs and blueprints.
-  - **Recycle Bin**: File deletion and recovery.
-  - **Display Properties**: Custom wallpaper selector and CRT scanlines toggle.
-  - **Shut Down Dialog**: Classic shut down prompt and "It's now safe to turn off your computer" screen.
+The desktop preserves authentic Windows 98 operating system styling, taskbars, windows, and interactions while cataloguing period-accurate historical archives and creative recreations:
+- **Classic Visual Style**: Authentic teal wallpaper (`#008080`), 3D beveled windows, navy-to-blue gradient titlebars, and pixel-crisp iconography.
+- **My Documents**:
+  - `Personal`: Galaxy Apartments Bandra residence notes, 1999 daily gym routine, early Being Human thoughts, and the secret `DON'T_OPEN` folder.
+  - `Bollywood`: Complete 1995–2003 filmography, Tere Naam phenomenon, and Sooraj Barjatya / Sanjay Leela Bhansali creative notes.
+  - `Relationships`: Dedicated archives for Aishwarya Rai, Somy Ali, and Sangeeta Bijlani with publicly reported timelines, press releases, and shooting memories.
+  - `Legal Documents`: Blackbuck Case (1998) case notes, Jodhpur incident timeline, mock court notices, and lawyer directories.
+  - `Film Projects`: Behind-the-scenes logs for Karan Arjun, Hum Saath-Saath Hain, Hum Dil De Chuke Sanam, and Tere Naam.
+  - `Newspaper Clippings`: Times of India, Filmfare, Stardust, and Mid-Day contemporary reports.
+  - `Downloads`: Farmhouse guest lists and password-protected fictional archive ZIP.
+- **My Pictures**: 13 dedicated folders (`Salman_1995` through `Salman_2003`, `Aishwarya_Rai`, `Somy_Ali`, `Sangeeta_Bijlani`, `Bollywood_Events`) with source attributions.
+- **Internet Explorer**: Seeded with 12 historical search queries, period-appropriate Rediff search results, and bookmarks including IndiaFM, Filmfare, and an Easter egg vault bookmark.
+- **Easter Eggs**: Secret folder warnings, password-protected ZIP extraction, funny Windows 98 error prompts, and unsent drafts.
 
 ## Getting Started
 

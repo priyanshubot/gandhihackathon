@@ -10,10 +10,10 @@ import './retro98.css';
 
 const APP_CONFIGS = {
   'notepad': {
-    title: 'Notepad - CONFIDENTIAL.TXT',
+    title: 'Notepad - GALAXY_APARTMENTS_NOTES.TXT',
     icon: RetroIcons.Notepad,
-    width: 480,
-    height: 350
+    width: 500,
+    height: 360
   },
   'minesweeper': {
     title: 'Minesweeper',
@@ -22,16 +22,16 @@ const APP_CONFIGS = {
     height: 300
   },
   'paint': {
-    title: 'Paint - [facility_blueprint.bmp]',
+    title: 'Paint - [canvas_sketch.bmp]',
     icon: RetroIcons.Paint,
     width: 580,
     height: 440
   },
   'internet-explorer': {
-    title: 'Microsoft Internet Explorer - Project Omega',
+    title: 'Microsoft Internet Explorer - Bollywood 2003 Portal',
     icon: RetroIcons.InternetExplorer,
-    width: 640,
-    height: 460
+    width: 660,
+    height: 470
   },
   'my-computer': {
     title: 'My Computer',
@@ -42,8 +42,14 @@ const APP_CONFIGS = {
   'my-documents': {
     title: 'My Documents',
     icon: RetroIcons.MyDocuments,
-    width: 440,
-    height: 310
+    width: 480,
+    height: 340
+  },
+  'my-pictures': {
+    title: 'My Pictures - Salman Khan Archive (1995–2003)',
+    icon: RetroIcons.MyPictures,
+    width: 620,
+    height: 430
   },
   'recycle-bin': {
     title: 'Recycle Bin',
@@ -59,21 +65,38 @@ const APP_CONFIGS = {
   }
 };
 
+const INITIAL_SALLU_NOTE = `[PERSONAL NOTE - BANDRA RESIDENCE]
+LOCATION: Galaxy Apartments, Bandstand, Bandra (West), Mumbai 400050
+DATE: 4 November 2002
+
+Dad (Salim Khan) was saying this morning: "A man's character is tested when the storms hit, not on sunny afternoons."
+The press has been crowding the gate at Bandstand all week. Can't even step out onto the balcony without seeing telephoto lenses.
+
+Notes for the week:
+1. Panvel Farmhouse: Go there on Friday night. Need to ride the horses and clear my mind.
+2. Arbaaz and Sohail's new script discussion on Sunday.
+3. Call Mom (Salma Khan) and Helen Aunty before evening.
+4. Painting canvas: Pick up more linseed oil and charcoal pencils from Fort art shop. Working on the large Lord Shiva portrait in the study.
+
+[THIS PERSONAL COMPUTER CONTAINS ARCHIVES, LEGAL NOTES, RELATIONSHIPS & DIARIES FROM 1995-2003]`;
+
 export default function App() {
-  // Start with a notepad window open displaying the eerie hackathon memo
+  // Start with a notepad window open displaying Sallu Bhai's personal diary note
   const [windows, setWindows] = useState([
     {
       id: 'win-initial-notepad',
       appId: 'notepad',
-      title: 'Notepad - CONFIDENTIAL.TXT',
+      title: 'Notepad - GALAXY_APARTMENTS_NOTES.TXT',
       icon: RetroIcons.Notepad,
-      x: 120,
-      y: 60,
-      width: 480,
-      height: 340,
+      x: 110,
+      y: 50,
+      width: 500,
+      height: 360,
       isMinimized: false,
       isMaximized: false,
-      zIndex: 10
+      zIndex: 10,
+      content: INITIAL_SALLU_NOTE,
+      fileName: 'GALAXY_APARTMENTS_NOTES.TXT'
     }
   ]);
 

@@ -16,9 +16,10 @@ export default function MyComputerApp({ onOpenFile }) {
   const cDriveContents = [
     { id: 'f1', name: 'WINDOWS', icon: RetroIcons.Folder, type: 'dir' },
     { id: 'f2', name: 'PROGRAM FILES', icon: RetroIcons.Folder, type: 'dir' },
-    { id: 'f3', name: 'RESTRICTED_LABS', icon: RetroIcons.Folder, type: 'dir' },
-    { id: 'doc1', name: 'SYSTEM_LOG.TXT', icon: RetroIcons.FileText, type: 'file', content: 'SYSTEM INITIALIZED: 1998-04-12\nCORE TEMP: NORMAL\nDIAL-UP: DISCONNECTED' },
-    { id: 'doc2', name: 'AUTOEXEC.BAT', icon: RetroIcons.FileText, type: 'file', content: '@ECHO OFF\nPROMPT $P$G\nPATH C:\\WINDOWS;C:\\WINDOWS\\COMMAND\nSET BLASTER=A220 I5 D1 H5 P330' }
+    { id: 'f3', name: 'MY DOCUMENTS', icon: RetroIcons.MyDocuments, type: 'app', target: 'my-documents' },
+    { id: 'f4', name: 'MY PICTURES', icon: RetroIcons.MyPictures, type: 'app', target: 'my-pictures' },
+    { id: 'f5', name: 'PANVEL_FARM_LOGS', icon: RetroIcons.Folder, type: 'file', content: '[PANVEL FARM LOG - 2003]\nStables: 8 thoroughbred horses in good health.\nFruit plantation: Mango & chikoo trees harvested.\nWell water levels: High.\nBonfire wood ready for New Year 2004 gathering.' },
+    { id: 'doc1', name: 'AUTOEXEC.BAT', icon: RetroIcons.FileText, type: 'file', content: '@ECHO OFF\nPROMPT $P$G\nPATH C:\\WINDOWS;C:\\WINDOWS\\COMMAND\nSET SOUND=C:\\SB16\nREM GALAXY APARTMENTS TERMINAL' }
   ];
 
   const handleItemClick = (item) => {
@@ -33,16 +34,16 @@ export default function MyComputerApp({ onOpenFile }) {
       setSelectedItem(null);
     } else if (item.id === 'a') {
       soundEffects.playError();
-      alert('Drive A: is not ready. The door may be open. Please check drive A: and make sure that a disk is inserted.');
+      alert('Drive A: is not ready. The door may be open. Please check drive A: and make sure that a floppy disk is inserted.');
     } else if (item.id === 'd') {
       soundEffects.playError();
-      alert('Please insert a disc into drive D:.');
+      alert('Please insert a compact disc into drive D:.');
     } else if (item.id === 'settings') {
       onOpenFile && onOpenFile('display-properties');
+    } else if (item.type === 'app') {
+      onOpenFile && onOpenFile(item.target);
     } else if (item.type === 'file') {
       onOpenFile && onOpenFile('notepad', { title: item.name, content: item.content });
-    } else if (item.id === 'f3') {
-      alert('ACCESS DENIED: Sublevel clearance required for RESTRICTED_LABS.');
     }
   };
 

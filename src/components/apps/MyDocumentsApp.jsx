@@ -1,66 +1,13 @@
 import React, { useState } from 'react';
 import { RetroIcons } from '../RetroIcons';
 import { soundEffects } from '../../utils/soundEffects';
+import { SALLU_DOCUMENTS_TREE } from '../../data/salluBhaiData';
 
-const DOCS = [
-  {
-    id: 'doc1',
-    name: 'INCIDENT_LOG_1998.txt',
-    icon: RetroIcons.FileText,
-    type: 'notepad',
-    size: '2 KB',
-    content: `[OMEGA FACILITY - INCIDENT REPORT]
-INCIDENT ID: 1998-ALPHA-77
-TIMESTAMP: 1998-10-24 02:45:11 UTC
-
-Summary:
-During testing of the resonance coil in Sublevel 3, an unpredicted telemetry surge caused a cascading failure across the auxiliary cooling towers.
-Dr. Vance engaged emergency shutoffs, but the magnetic field collapsed, leaving an electromagnetic residue.
-
-Orders from Central:
-1. Evacuate all human staff immediately.
-2. Leave Terminal 98-B active to log continuous sensor readouts.
-3. Lock all bulkhead doors.
-
-Note added by Dr. Vance:
-"If anyone ever boots this terminal back up in the future... check the internet mirror on the intranet. We weren't the only ones in the sublevel."`
-  },
-  {
-    id: 'doc2',
-    name: 'SECURITY_PASSWORDS.txt',
-    icon: RetroIcons.FileText,
-    type: 'notepad',
-    size: '1 KB',
-    content: `[DO NOT LEAVE ON DESKTOP - DR. VANCE]
-
-Sublevel 3 Bulkhead: 4821
-Generator Room: 1998
-Minesweeper High Score: 14 seconds (Dr. Aris)
-Server Root: *********** [DELETED BY ADMIN]`
-  },
-  {
-    id: 'doc3',
-    name: 'FACILITY_BLUEPRINT.bmp',
-    icon: RetroIcons.FileImage,
-    type: 'paint',
-    size: '48 KB'
-  },
-  {
-    id: 'doc4',
-    name: 'PROJECT_OMEGA_SUMMARY.txt',
-    icon: RetroIcons.FileText,
-    type: 'notepad',
-    size: '3 KB',
-    content: `PROJECT OMEGA SPECIFICATION
-Classification: TOP SECRET
-Hardware: Dual Pentium II 450 MHz, 128 MB SDRAM, Windows 98 Second Edition Build 2222A.
-Primary Objective: Sub-atomic computational simulation.
-Outcome: Abandoned indefinitely.`
-  }
-];
-
-export default function MyDocumentsApp({ onOpenFile }) {
+export default function MyDocumentsApp({ onOpenFile, onUnlockZip }) {
+  const [folderPath, setFolderPath] = useState([SALLU_DOCUMENTS_TREE]);
   const [selectedId, setSelectedId] = useState(null);
+
+  const currentFolder = folderPath[folderPath.length - 1];
 
   const handleItemClick = (item) => {
     soundEffects.playClick();
@@ -69,12 +16,70 @@ export default function MyDocumentsApp({ onOpenFile }) {
 
   const handleItemDoubleClick = (item) => {
     soundEffects.playClick();
-    if (item.type === 'notepad') {
+    if (item.type === 'folder') {
+      if (item.isSecret) {
+        soundEffects.playError();
+        const proceed = confirm("WARNING: This directory contains private reflections from 2002.\nDo you wish to enter?");
+        if (!proceed) return;
+      }
+      setFolderPath((prev) => [...prev, item]);
+      setSelectedId(null);
+    } else if (item.type === 'text' || item.type === 'doc') {
       onOpenFile && onOpenFile('notepad', { title: item.name, content: item.content });
-    } else if (item.type === 'paint') {
-      onOpenFile && onOpenFile('paint');
+    } else if (item.type === 'zip') {
+      onUnlockZip ? onUnlockZip(item) : handleZipClick(item);
+    } else if (item.type === 'audio') {
+      soundEffects.playStartup();
+      alert(`Playing: ${item.name}\n(Synthesized 1990s Bollywood MIDI playback)`);
     }
   };
+
+  const handleZipClick = (zipItem) => {
+    const input = prompt(
+      `WinZip (Evaluation Version)\nEnter password for ${zipItem.name}:\n\n${zipItem.hint}`
+    );
+    if (!input) return;
+    const clean = input.trim().toLowerCase();
+    if (clean === 'prem' || clean === 'radhe' || clean === 'turquoise') {
+      soundEffects.playWin();
+      alert('Password accepted! Extracting vault file...');
+      onOpenFile && onOpenFile('notepad', {
+        title: 'UNLOCKED_BHAI_MOTTO.TXT',
+        content: zipItem.secretContent
+      });
+    } else {
+      soundEffects.playError();
+      alert('Error: CRC Check Failed. Incorrect password.');
+    }
+  };
+
+  const handleUp = () => {
+    if (folderPath.length > 1) {
+      soundEffects.playClick();
+      setFolderPath((prev) => prev.slice(0, prev.length - 1));
+      setSelectedId(null);
+    }
+  };
+
+  const getFullAddressPath = () => {
+    const parts = folderPath.map((f) => f.name);
+    return `C:\\${parts.join('\\')}`;
+  };
+
+  const getItemIcon = (item) => {
+    if (item.type === 'folder') {
+      return item.isSecret ? RetroIcons.SecretFolder : RetroIcons.Folder;
+    }
+    if (item.type === 'zip') {
+      return RetroIcons.ZipFile;
+    }
+    if (item.type === 'doc' || item.type === 'text') {
+      return RetroIcons.FileText;
+    }
+    return RetroIcons.FileText;
+  };
+
+  const items = currentFolder.children || [];
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#c0c0c0' }}>
@@ -84,6 +89,40 @@ export default function MyDocumentsApp({ onOpenFile }) {
         <div className="win98-menu-item">Edit</div>
         <div className="win98-menu-item">View</div>
         <div className="win98-menu-item">Help</div>
+      </div>
+
+      {/* Toolbar */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
+          padding: '2px 4px',
+          borderBottom: '1px solid #808080'
+        }}
+      >
+        <button
+          type="button"
+          className="win98-btn"
+          disabled={folderPath.length <= 1}
+          onClick={handleUp}
+          style={{ opacity: folderPath.length <= 1 ? 0.5 : 1 }}
+        >
+          ⬆ Up
+        </button>
+        <button type="button" className="win98-btn" onClick={() => soundEffects.playClick()}>
+          Cut
+        </button>
+        <button type="button" className="win98-btn" onClick={() => soundEffects.playClick()}>
+          Copy
+        </button>
+        <button type="button" className="win98-btn" onClick={() => soundEffects.playClick()}>
+          Paste
+        </button>
+        <div style={{ flex: 1 }} />
+        <span style={{ fontSize: '10px', color: '#555', paddingRight: '4px' }}>
+          Personal PC - Bandra 1995-2003
+        </span>
       </div>
 
       {/* Explorer Address Bar */}
@@ -105,10 +144,13 @@ export default function MyDocumentsApp({ onOpenFile }) {
             backgroundColor: '#ffffff',
             padding: '2px 4px',
             fontSize: '11px',
-            fontFamily: 'var(--win-font)'
+            fontFamily: 'var(--win-font)',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
           }}
         >
-          C:\My Documents
+          {getFullAddressPath()}
         </div>
       </div>
 
@@ -119,66 +161,70 @@ export default function MyDocumentsApp({ onOpenFile }) {
           flex: 1,
           padding: '12px',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(90px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(92px, 1fr))',
           gap: '16px',
           alignContent: 'flex-start',
           backgroundColor: '#ffffff'
         }}
         onClick={() => setSelectedId(null)}
       >
-        {DOCS.map((doc) => {
-          const Icon = doc.icon;
-          const isSelected = selectedId === doc.id;
-          return (
-            <div
-              key={doc.id}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleItemClick(doc);
-              }}
-              onDoubleClick={(e) => {
-                e.stopPropagation();
-                handleItemDoubleClick(doc);
-              }}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center',
-                cursor: 'default',
-                padding: '4px',
-                maxWidth: '90px'
-              }}
-            >
-              <div style={{ marginBottom: '4px' }}>
-                <Icon size={32} />
-              </div>
-              <span
+        {items.length === 0 ? (
+          <div style={{ color: '#888', padding: '10px', fontSize: '11px' }}>This folder is empty.</div>
+        ) : (
+          items.map((item) => {
+            const Icon = getItemIcon(item);
+            const isSelected = selectedId === item.id;
+            return (
+              <div
+                key={item.id}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleItemClick(item);
+                }}
+                onDoubleClick={(e) => {
+                  e.stopPropagation();
+                  handleItemDoubleClick(item);
+                }}
                 style={{
-                  fontSize: '11px',
-                  fontFamily: 'var(--win-font)',
-                  padding: '1px 3px',
-                  backgroundColor: isSelected ? 'var(--win-blue-start)' : 'transparent',
-                  color: isSelected ? '#ffffff' : '#000000',
-                  outline: isSelected ? '1px dotted #ffffff' : 'none',
-                  wordBreak: 'break-word',
-                  lineHeight: '1.2'
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  cursor: 'default',
+                  padding: '4px',
+                  maxWidth: '92px'
                 }}
               >
-                {doc.name}
-              </span>
-            </div>
-          );
-        })}
+                <div style={{ marginBottom: '4px' }}>
+                  <Icon size={32} />
+                </div>
+                <span
+                  style={{
+                    fontSize: '11px',
+                    fontFamily: 'var(--win-font)',
+                    padding: '1px 3px',
+                    backgroundColor: isSelected ? 'var(--win-blue-start)' : 'transparent',
+                    color: isSelected ? '#ffffff' : '#000000',
+                    outline: isSelected ? '1px dotted #ffffff' : 'none',
+                    wordBreak: 'break-word',
+                    lineHeight: '1.2'
+                  }}
+                >
+                  {item.name}
+                </span>
+              </div>
+            );
+          })
+        )}
       </div>
 
       {/* Status Bar */}
       <div className="win98-statusbar">
         <div className="win98-status-section" style={{ flex: 1 }}>
-          {DOCS.length} object(s)
+          {items.length} object(s)
         </div>
-        <div className="win98-status-section" style={{ width: '120px' }}>
-          54.0 KB
+        <div className="win98-status-section" style={{ width: '130px' }}>
+          Galaxy HD (C:)
         </div>
       </div>
     </div>
